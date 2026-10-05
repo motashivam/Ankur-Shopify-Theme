@@ -7,7 +7,7 @@
     </div>
   </header>
 
-  <div class="container">
+  <div class="container collection-products">
     <div class="collection-toolbar">
       <span>{{ collection.products_count }} {% if collection.products_count == 1 %}product{% else %}products{% endif %}</span>
       <form class="sort-form" method="get">
@@ -19,8 +19,10 @@
       </form>
     </div>
 
-    <div class="collection-layout">
-      {% if section.settings.show_tag_filters and collection.all_tags.size > 0 %}
+    {% assign show_sidebar = false %}
+    {% if section.settings.show_tag_filters and collection.all_tags.size > 0 %}{% assign show_sidebar = true %}{% endif %}
+    <div class="collection-layout{% if show_sidebar %} has-filters{% endif %}">
+      {% if show_sidebar %}
         <nav class="collection-filters" aria-label="Filter products">
           <strong>Filter</strong>
           <a href="{{ collection.url }}"{% if current_tags == blank %} class="active"{% endif %}>All</a>
@@ -34,7 +36,7 @@
         {% paginate collection.products by section.settings.products_per_page %}
           {% if collection.products.size > 0 %}
             <div class="product-grid">
-              {% for product in collection.products %}{% render 'product-card', product: product %}{% endfor %}
+              {% for product in collection.products %}{% render 'product-card', product: product, show_vendor: section.settings.show_vendor %}{% endfor %}
             </div>
             {% render 'pagination', paginate: paginate %}
           {% else %}
@@ -52,6 +54,7 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Made for every day" },
     { "type": "checkbox", "id": "show_tag_filters", "label": "Show tag filters", "default": true },
+    { "type": "checkbox", "id": "show_vendor", "label": "Show vendor", "default": false },
     { "type": "range", "id": "products_per_page", "min": 8, "max": 32, "step": 4, "label": "Products per page", "default": 16 }
   ]
 }

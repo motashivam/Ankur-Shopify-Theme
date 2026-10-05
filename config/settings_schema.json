@@ -33,6 +33,12 @@
     ]
   },
   {
+    "name": "Product cards",
+    "settings": [
+      { "type": "checkbox", "id": "show_vendor", "label": "Show vendor", "default": false }
+    ]
+  },
+  {
     "name": "Social media",
     "settings": [
       { "type": "url", "id": "social_instagram", "label": "Instagram" },
