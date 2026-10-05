@@ -1,62 +1,156 @@
+{%- assign footer_shop_name = shop.name -%}
+{%- if footer_shop_name == blank or footer_shop_name == 'My Store' -%}
+  {%- assign footer_shop_name = 'Ankur Family Shop' -%}
+{%- endif -%}
+
 <footer class="site-footer">
-  <div class="container footer-grid">
+  <div class="footer-grid">
     <div class="footer-brand">
-      <a class="footer-logo-wrap" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home">
-        {% if settings.logo != blank %}
-          {{ settings.logo | image_url: width: 420 | image_tag: widths: '220, 320, 420', alt: shop.name, loading: 'lazy' }}
-        {% else %}
-          <img src="{{ 'ankur-logo.jpeg' | asset_url }}" width="420" height="210" alt="{{ shop.name | escape }}" loading="lazy">
-        {% endif %}
+      <a class="footer-logo-wrap" href="{{ routes.root_url }}" aria-label="{{ footer_shop_name | escape }} home">
+        <img src="{{ 'ankur-logo-transparent.png' | asset_url }}" width="1271" height="544" alt="{{ footer_shop_name | escape }}" loading="lazy">
       </a>
+
       <p>{{ section.settings.tagline }}</p>
-      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+
+      {%- if section.settings.phone != blank or section.settings.email != blank or section.settings.address != blank -%}
+        <div class="footer-contact">
+          {%- if section.settings.phone != blank -%}
+            <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '+' }}">
+              <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>{{ section.settings.phone }}</span>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.email != blank -%}
+            <a href="mailto:{{ section.settings.email }}">
+              <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+              <span>{{ section.settings.email }}</span>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.address != blank -%}
+            <span class="footer-contact-line">
+              <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>{{ section.settings.address }}</span>
+            </span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_newsletter -%}
+        <div class="footer-newsletter">
+          <strong>{{ section.settings.newsletter_heading }}</strong>
+          <p>{{ section.settings.newsletter_text }}</p>
+          {%- form 'customer', class: 'footer-newsletter-form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <input type="email" name="contact[email]" value="{{ form.email }}" required autocomplete="email" placeholder="{{ section.settings.newsletter_placeholder }}" aria-label="{{ section.settings.newsletter_placeholder | escape }}">
+            <button type="submit">{{ section.settings.newsletter_button }}</button>
+            {%- if form.posted_successfully? -%}<p class="form-status success">Thanks for subscribing.</p>{%- endif -%}
+            {%- if form.errors -%}<p class="form-status error">{{ form.errors | default_errors }}</p>{%- endif -%}
+          {%- endform -%}
+        </div>
+      {%- endif -%}
     </div>
 
-    {% for block in section.blocks %}
-      <details class="footer-group" open {{ block.shopify_attributes }}>
-        <summary>
-          <strong>{{ block.settings.heading }}</strong>
-          <span class="footer-group-toggle" aria-hidden="true"></span>
-        </summary>
-        <div class="footer-links">
-          {% if block.settings.menu != blank %}
-            {% for link in block.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
-          {% endif %}
-        </div>
-      </details>
-    {% endfor %}
-
     <details class="footer-group" open>
-      <summary>
-        <strong>{{ section.settings.social_heading }}</strong>
-        <span class="footer-group-toggle" aria-hidden="true"></span>
-      </summary>
+      <summary><strong>Shop</strong><span class="footer-group-toggle" aria-hidden="true"></span></summary>
       <div class="footer-links">
-        {% if settings.social_instagram != blank %}<a href="{{ settings.social_instagram }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
-        {% if settings.social_facebook != blank %}<a href="{{ settings.social_facebook }}" rel="noopener" target="_blank">Facebook</a>{% endif %}
-        <a href="{{ routes.root_url }}pages/about-us">Our story</a>
+        <a href="{{ routes.all_products_collection_url }}">New Arrivals</a>
+        <a href="{{ routes.all_products_collection_url }}">Shirts</a>
+        <a href="{{ routes.all_products_collection_url }}">T-Shirts</a>
+        <a href="{{ routes.all_products_collection_url }}">Polos</a>
+        <a href="{{ routes.all_products_collection_url }}">Jeans</a>
+        <a href="{{ routes.all_products_collection_url }}">Trousers</a>
+        <a href="{{ routes.all_products_collection_url }}">Cargos</a>
+        <a href="{{ routes.all_products_collection_url }}">Best Sellers</a>
+        <a href="{{ routes.all_products_collection_url }}">Sale</a>
       </div>
     </details>
+
+    <details class="footer-group" open>
+      <summary><strong>Customer care</strong><span class="footer-group-toggle" aria-hidden="true"></span></summary>
+      <div class="footer-links">
+        <a href="{{ routes.root_url }}pages/contact">Contact Us</a>
+        <a href="{{ routes.root_url }}pages/shipping">Shipping</a>
+        <a href="{{ routes.root_url }}pages/returns">Returns</a>
+        <a href="{{ routes.root_url }}pages/size-guide">Size Guide</a>
+        <a href="{{ routes.root_url }}pages/faq">FAQ</a>
+      </div>
+    </details>
+
+    <details class="footer-group" open>
+      <summary><strong>About Ankur</strong><span class="footer-group-toggle" aria-hidden="true"></span></summary>
+      <div class="footer-links">
+        <a href="{{ routes.root_url }}pages/about-us">About Us</a>
+        <a href="{{ routes.root_url }}pages/our-store">Our Store</a>
+        <a href="{{ routes.root_url }}pages/contact">Contact</a>
+      </div>
+    </details>
+
+    <details class="footer-group" open>
+      <summary><strong>Follow us</strong><span class="footer-group-toggle" aria-hidden="true"></span></summary>
+      <div class="footer-links footer-social">
+        {%- if settings.social_instagram != blank -%}
+          <a class="social-link" href="{{ settings.social_instagram }}" rel="noopener" target="_blank">
+            <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>
+            <span>Instagram</span>
+          </a>
+        {%- else -%}
+          <span class="social-link social-static">
+            <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>
+            <span>Instagram</span>
+          </span>
+        {%- endif -%}
+        {%- if settings.social_facebook != blank -%}
+          <a class="social-link" href="{{ settings.social_facebook }}" rel="noopener" target="_blank">
+            <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            <span>Facebook</span>
+          </a>
+        {%- else -%}
+          <span class="social-link social-static">
+            <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            <span>Facebook</span>
+          </span>
+        {%- endif -%}
+        {%- if settings.social_whatsapp != blank -%}
+          <a class="social-link" href="{{ settings.social_whatsapp }}" rel="noopener" target="_blank">
+            <svg class="fi fi-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884M20.463 3.488A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+            <span>WhatsApp</span>
+          </a>
+        {%- else -%}
+          <span class="social-link social-static">
+            <svg class="fi fi-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+            <span>WhatsApp</span>
+          </span>
+        {%- endif -%}
+      </div>
+    </details>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">&copy; {{ 'now' | date: '%Y' }} {{ footer_shop_name }}. All rights reserved.</p>
+    <nav class="policy-links" aria-label="Policies">
+      {%- if shop.policies.privacy_policy.url != blank -%}<a href="{{ shop.policies.privacy_policy.url }}">{{ shop.policies.privacy_policy.title }}</a>{%- endif -%}
+      {%- if shop.policies.terms_of_service.url != blank -%}<a href="{{ shop.policies.terms_of_service.url }}">{{ shop.policies.terms_of_service.title | default: 'Terms' }}</a>{%- endif -%}
+      {%- if shop.policies.refund_policy.url != blank -%}<a href="{{ shop.policies.refund_policy.url }}">{{ shop.policies.refund_policy.title }}</a>{%- endif -%}
+      {%- if shop.policies.shipping_policy.url != blank -%}<a href="{{ shop.policies.shipping_policy.url }}">{{ shop.policies.shipping_policy.title }}</a>{%- endif -%}
+    </nav>
   </div>
 </footer>
 
 {% schema %}
 {
   "name": "Footer",
-  "max_blocks": 3,
   "settings": [
-    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Everyday clothing for every kind of day." },
-    { "type": "text", "id": "social_heading", "label": "Social heading", "default": "Follow along" }
-  ],
-  "blocks": [
-    {
-      "type": "menu",
-      "name": "Menu",
-      "settings": [
-        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
-        { "type": "link_list", "id": "menu", "label": "Menu" }
-      ]
-    }
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Everyday clothing made for work, weekends and everything in between." },
+    { "type": "header", "content": "Contact information" },
+    { "type": "text", "id": "phone", "label": "Phone", "info": "Hidden when empty" },
+    { "type": "text", "id": "email", "label": "Email", "info": "Hidden when empty" },
+    { "type": "textarea", "id": "address", "label": "Store address", "info": "Hidden when empty" },
+    { "type": "header", "content": "Footer newsletter" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter signup", "default": false },
+    { "type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "Stay updated" },
+    { "type": "text", "id": "newsletter_text", "label": "Newsletter text", "default": "New arrivals, everyday styles and offers from Ankur." },
+    { "type": "text", "id": "newsletter_placeholder", "label": "Email placeholder", "default": "Email address" },
+    { "type": "text", "id": "newsletter_button", "label": "Newsletter button", "default": "Subscribe" }
   ]
 }
 {% endschema %}

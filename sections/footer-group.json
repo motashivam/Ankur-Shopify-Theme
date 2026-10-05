@@ -4,11 +4,8 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "blocks": {
-        "shop": { "type": "menu", "settings": { "heading": "Shop" } },
-        "help": { "type": "menu", "settings": { "heading": "Help" } }
-      },
-      "block_order": ["shop", "help"],
+      "blocks": {},
+      "block_order": [],
       "settings": {}
     }
   },

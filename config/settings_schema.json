@@ -36,7 +36,8 @@
     "name": "Social media",
     "settings": [
       { "type": "url", "id": "social_instagram", "label": "Instagram" },
-      { "type": "url", "id": "social_facebook", "label": "Facebook" }
+      { "type": "url", "id": "social_facebook", "label": "Facebook" },
+      { "type": "url", "id": "social_whatsapp", "label": "WhatsApp" }
     ]
   }
 ]
