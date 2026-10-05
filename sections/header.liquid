@@ -19,7 +19,7 @@
 <header class="site-header" data-site-header>
   <div class="header-main container">
     <div class="header-left">
-      <button class="icon-button menu-trigger" type="button" aria-label="Open menu" aria-expanded="false" data-mobile-menu-open>
+      <button class="menu-trigger" type="button" aria-label="Open menu" aria-expanded="false" data-mobile-menu-open>
         {% render 'icon', name: 'menu' %}<span>Menu</span>
       </button>
     </div>
@@ -34,7 +34,7 @@
 
     <div class="header-right">
       <button class="action-link search-toggle" type="button" aria-label="Search" aria-expanded="false" data-search-toggle>
-        {% render 'icon', name: 'search' %}<span>Search</span>
+        {% render 'icon', name: 'search' %}<span class="desktop-only">Search</span>
       </button>
       {% if section.settings.show_account %}
         <a class="action-link desktop-only" href="{{ routes.account_url }}" aria-label="Account">
@@ -68,6 +68,23 @@
     </form>
   </div>
 </header>
+
+<nav class="category-nav" aria-label="Category navigation">
+  <div class="container">
+    <ul class="category-list">
+      <li><a href="{{ routes.all_products_collection_url }}">NEW ARRIVALS</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}">SHIRTS</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}">T-SHIRTS</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}">POLOS</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}">JEANS</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}">TROUSERS</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}">CARGOS</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}">FORMAL WEAR</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}">BEST SELLERS</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}">SALE</a></li>
+    </ul>
+  </div>
+</nav>
 
 <div class="mobile-menu-overlay" data-mobile-menu hidden>
   <aside class="mobile-menu" aria-label="Mobile navigation" aria-modal="true" role="dialog" tabindex="-1">
