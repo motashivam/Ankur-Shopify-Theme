@@ -1,0 +1,85 @@
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_media = current_variant.featured_media | default: product.featured_media
+%}
+
+<section class="product-page container" data-product-details>
+  <div class="product-gallery" aria-label="Product media">
+    {% if product.media.size > 0 %}
+      {% for media in product.media %}
+        {% liquid
+          assign media_loading = 'lazy'
+          if forloop.first
+            assign media_loading = 'eager'
+          endif
+        %}
+        <figure{% if media.id == featured_media.id %} data-featured-media{% endif %}>
+          {{ media.preview_image | image_url: width: 1400 | image_tag: widths: '420, 640, 900, 1200, 1400', sizes: '(max-width: 850px) 100vw, 55vw', alt: media.alt | default: product.title, loading: media_loading }}
+        </figure>
+      {% endfor %}
+    {% else %}
+      <figure>{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</figure>
+    {% endif %}
+  </div>
+
+  <div class="product-details">
+    <span class="eyebrow">{{ product.vendor }}</span>
+    <h1>{{ product.title }}</h1>
+    <div class="product-page-price">
+      <strong data-product-price>{{ current_variant.price | money }}</strong>
+      <del data-compare-price{% unless current_variant.compare_at_price > current_variant.price %} hidden{% endunless %}>
+        {% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}
+      </del>
+    </div>
+    {% if shop.taxes_included %}<p class="product-tax-note">Taxes included.</p>{% endif %}
+
+    {% form 'product', product, class: 'product-form', data-ajax-cart-form: '' %}
+      {% unless product.has_only_default_variant %}
+        <div>
+          <label for="Variant-{{ section.id }}">Choose an option</label>
+          <select id="Variant-{{ section.id }}" name="id" data-variant-select>
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" data-price="{{ variant.price | money }}" data-compare-price="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}" data-available="{{ variant.available }}"{% if variant.id == current_variant.id %} selected{% endif %}>
+                {{ variant.title }}{% unless variant.available %} - Sold out{% endunless %}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      {% else %}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+      {% endunless %}
+
+      <div>
+        <label for="Quantity-{{ section.id }}">Quantity</label>
+        <div class="quantity-control" data-quantity>
+          <button type="button" aria-label="Decrease quantity" data-quantity-change="-1">{% render 'icon', name: 'minus' %}</button>
+          <input id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1" inputmode="numeric">
+          <button type="button" aria-label="Increase quantity" data-quantity-change="1">{% render 'icon', name: 'plus' %}</button>
+        </div>
+      </div>
+
+      <button class="button button-dark product-submit" type="submit" data-product-submit data-ajax-submit data-add-label="Add to bag" data-sold-label="Sold out"{% unless current_variant.available %} disabled{% endunless %}>
+        {% if current_variant.available %}Add to bag{% else %}Sold out{% endif %}
+      </button>
+      {% if section.settings.show_dynamic_checkout and current_variant.available %}{{ form | payment_button }}{% endif %}
+    {% endform %}
+
+    {% if product.description != blank %}<div class="product-description rte">{{ product.description }}</div>{% endif %}
+
+    <div class="product-meta">
+      <details><summary>Shipping & returns</summary><div>{{ section.settings.shipping_text }}</div></details>
+      <details><summary>Care</summary><div>{{ section.settings.care_text }}</div></details>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": [
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout button", "default": true },
+    { "type": "textarea", "id": "shipping_text", "label": "Shipping and returns", "default": "Complimentary shipping on qualifying orders. Returns are accepted according to the store policy." },
+    { "type": "textarea", "id": "care_text", "label": "Care information", "default": "Follow the instructions on the garment care label to keep your piece looking its best." }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Ankur Family Shop",
+    "theme_version": "1.0.0",
+    "theme_author": "Ankur Family Shop",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com/"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      { "type": "range", "id": "logo_width", "min": 100, "max": 260, "step": 10, "unit": "px", "label": "Logo width", "default": 190 }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "color_background", "label": "Background", "default": "#f8f6ef" },
+      { "type": "color", "id": "color_surface", "label": "Surface", "default": "#f1ede4" },
+      { "type": "color", "id": "color_primary", "label": "Primary", "default": "#2f4858" },
+      { "type": "color", "id": "color_ink", "label": "Text", "default": "#24313a" },
+      { "type": "color", "id": "color_muted", "label": "Muted text", "default": "#68737a" },
+      { "type": "color", "id": "color_accent", "label": "Accent", "default": "#c9af8b" },
+      { "type": "color", "id": "color_border", "label": "Borders", "default": "#ddd7cb" }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      { "type": "range", "id": "page_width", "min": 1000, "max": 1500, "step": 20, "unit": "px", "label": "Page width", "default": 1200 }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      { "type": "url", "id": "social_instagram", "label": "Instagram" },
+      { "type": "url", "id": "social_facebook", "label": "Facebook" }
+    ]
+  }
+]

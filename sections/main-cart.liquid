@@ -1,0 +1,38 @@
+<section class="cart-page container">
+  <div class="cart-page-heading"><div><span class="eyebrow">Your selection</span><h1>Your bag</h1></div><a href="{{ routes.all_products_collection_url }}">Continue shopping</a></div>
+
+  {% if cart.empty? %}
+    <div class="empty-cart cart-page-empty">
+      {% render 'icon', name: 'bag' %}<h4>Your bag is waiting.</h4><p>Add something good for your next everyday.</p>
+      <a class="button button-dark" href="{{ routes.all_products_collection_url }}">Start shopping</a>
+    </div>
+  {% else %}
+    <form action="{{ routes.cart_url }}" method="post" id="CartForm">
+      <div class="cart-table">
+        {% for item in cart.items %}
+          <div class="cart-row">
+            <a href="{{ item.url }}">{% if item.image %}{{ item.image | image_url: width: 300 | image_tag: width: 150, height: 188, alt: item.title, loading: 'lazy' }}{% endif %}</a>
+            <div class="cart-row-info"><a href="{{ item.url }}"><strong>{{ item.product.title }}</strong></a>{% unless item.product.has_only_default_variant %}<span>{{ item.variant.title }}</span>{% endunless %}<span>{{ item.final_price | money }}</span></div>
+            <div class="quantity-control" data-quantity>
+              <button type="button" aria-label="Decrease quantity" data-quantity-change="-1">{% render 'icon', name: 'minus' %}</button>
+              <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric" aria-label="Quantity for {{ item.product.title | escape }}">
+              <button type="button" aria-label="Increase quantity" data-quantity-change="1">{% render 'icon', name: 'plus' %}</button>
+            </div>
+            <strong class="cart-row-price">{{ item.final_line_price | money }}</strong>
+            <a class="remove-link" href="{{ item.url_to_remove }}" aria-label="Remove {{ item.product.title | escape }}">{% render 'icon', name: 'trash' %}</a>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="cart-page-summary">
+        <div><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
+        <p>Shipping and taxes calculated at checkout.</p>
+        <button class="button button-outline" type="submit" name="update">Update bag</button>
+        <button class="button button-dark" type="submit" name="checkout">Checkout {% render 'icon', name: 'arrow-right' %}</button>
+      </div>
+    </form>
+  {% endif %}
+</section>
+
+{% schema %}
+{ "name": "Cart", "settings": [] }
+{% endschema %}

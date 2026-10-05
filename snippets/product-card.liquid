@@ -1,0 +1,74 @@
+{% liquid
+  assign card_product = product
+  assign primary_image = card_product.featured_media.preview_image
+  assign secondary_image = card_product.images[1]
+  assign on_sale = false
+  if card_product.compare_at_price > card_product.price
+    assign on_sale = true
+    assign savings = card_product.compare_at_price | minus: card_product.price
+    assign discount = savings | times: 100.0 | divided_by: card_product.compare_at_price | round
+  endif
+  capture categories
+    echo card_product.type | handle
+    for card_collection in card_product.collections
+      echo ' '
+      echo card_collection.handle
+    endfor
+  endcapture
+%}
+
+<article class="product-card" data-product-card data-category="{{ categories | strip }}">
+  <div class="product-image">
+    <a href="{{ card_product.url }}" aria-label="{{ card_product.title | escape }}">
+      {% if primary_image %}
+        {{ primary_image | image_url: width: 800 | image_tag: widths: '280, 400, 560, 800', sizes: '(max-width: 600px) 50vw, 25vw', alt: card_product.title, loading: 'lazy' }}
+        {% if secondary_image %}
+          {{ secondary_image | image_url: width: 800 | image_tag: class: 'product-hover-image', widths: '280, 400, 560, 800', sizes: '(max-width: 600px) 50vw, 25vw', alt: '', loading: 'lazy' }}
+        {% endif %}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </a>
+
+    <div class="product-labels">
+      {% if card_product.tags contains 'Bestseller' %}<span>Bestseller</span>{% elsif on_sale %}<span>Sale</span>{% endif %}
+    </div>
+    <button class="wish-button" type="button" data-wishlist data-product-id="{{ card_product.id }}" aria-label="Save {{ card_product.title | escape }}" aria-pressed="false">
+      {% render 'icon', name: 'heart' %}
+    </button>
+
+    {% if card_product.has_only_default_variant %}
+      {% form 'product', card_product, class: 'quick-add-form', data-ajax-cart-form: '' %}
+        <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button class="quick-add" type="submit" data-ajax-submit{% unless card_product.available %} disabled{% endunless %}>
+          {% if card_product.available %}Quick add{% else %}Sold out{% endif %}
+          {% render 'icon', name: 'arrow-right' %}
+        </button>
+      {% endform %}
+    {% else %}
+      <a class="quick-add" href="{{ card_product.url }}">Choose options {% render 'icon', name: 'arrow-right' %}</a>
+    {% endif %}
+  </div>
+
+  <div class="product-info">
+    <div>
+      <h3><a href="{{ card_product.url }}">{{ card_product.title }}</a></h3>
+      <span>{{ card_product.type | default: card_product.vendor }}</span>
+    </div>
+    <div class="product-price">
+      <strong>{{ card_product.price | money }}</strong>
+      {% if on_sale %}<del>{{ card_product.compare_at_price | money }}</del><small>{{ discount }}% off</small>{% endif %}
+    </div>
+    {% for option in card_product.options_with_values %}
+      {% assign option_name = option.name | downcase %}
+      {% if option_name contains 'color' or option_name contains 'colour' %}
+        <div class="product-colors">
+          {% for value in option.values limit: 3 %}<i style="background-color: {{ value | handle }}" title="{{ value | escape }}"></i>{% endfor %}
+          <span>{{ option.values.size }} colors</span>
+        </div>
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</article>

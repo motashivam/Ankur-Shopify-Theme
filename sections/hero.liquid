@@ -1,0 +1,52 @@
+<section class="hero container" id="Hero-{{ section.id }}">
+  <div class="hero-copy">
+    {% if section.settings.eyebrow != blank %}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{% endif %}
+    <h1>{{ section.settings.heading }}</h1>
+    {% if section.settings.text != blank %}<p>{{ section.settings.text }}</p>{% endif %}
+    <div class="hero-actions">
+      {% if section.settings.primary_label != blank %}
+        <a class="button button-dark" href="{{ section.settings.primary_link | default: routes.all_products_collection_url }}">{{ section.settings.primary_label }} {% render 'icon', name: 'arrow-right' %}</a>
+      {% endif %}
+      {% if section.settings.secondary_label != blank %}
+        <a class="text-button" href="{{ section.settings.secondary_link | default: routes.all_products_collection_url }}">{{ section.settings.secondary_label }} {% render 'icon', name: 'arrow-right' %}</a>
+      {% endif %}
+    </div>
+    <div class="hero-assurance">
+      {% if section.settings.assurance_one != blank %}<span>{% render 'icon', name: 'check' %} {{ section.settings.assurance_one }}</span>{% endif %}
+      {% if section.settings.assurance_two != blank %}<span>{% render 'icon', name: 'check' %} {{ section.settings.assurance_two }}</span>{% endif %}
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    {% if section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 1400 | image_tag: widths: '520, 760, 1000, 1400', sizes: '(max-width: 850px) 100vw, 55vw', alt: section.settings.image.alt | default: section.settings.heading, loading: 'eager', fetchpriority: 'high' }}
+    {% else %}
+      <img src="{{ 'fallback-shirts.jpg' | asset_url }}" width="1400" height="2100" alt="Man wearing a smart everyday shirt" loading="eager" fetchpriority="high">
+    {% endif %}
+    <div class="hero-caption"><span>{{ section.settings.caption_number }}</span><span>{{ section.settings.caption }}</span></div>
+    {% if section.settings.stamp != blank %}<div class="hero-stamp">{% render 'icon', name: 'sparkles' %}<span>{{ section.settings.stamp }}</span></div>{% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The everyday edit - 2026" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Everyday style, <em>made simple.</em>" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Comfortable, versatile menswear for workdays, weekends and everything in between." },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Shop men" },
+    { "type": "url", "id": "primary_link", "label": "Primary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "New arrivals" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary link" },
+    { "type": "text", "id": "assurance_one", "label": "First assurance", "default": "Easy everyday fits" },
+    { "type": "text", "id": "assurance_two", "label": "Second assurance", "default": "Made for Indian days" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "caption_number", "label": "Caption number", "default": "01 / 04" },
+    { "type": "text", "id": "caption", "label": "Caption", "default": "New season shirts" },
+    { "type": "text", "id": "stamp", "label": "Stamp text", "default": "Good clothes for good days" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

@@ -1,0 +1,46 @@
+<div class="drawer-overlay" data-cart-drawer-overlay hidden>
+  <aside class="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping bag" tabindex="-1" data-cart-drawer>
+    <div class="drawer-head">
+      <div><span class="eyebrow">Your selection</span><h3>Your bag <span>{{ cart.item_count }}</span></h3></div>
+      <button type="button" aria-label="Close bag" data-cart-close>{% render 'icon', name: 'close' %}</button>
+    </div>
+
+    {% if cart.empty? %}
+      <div class="empty-cart">
+        {% render 'icon', name: 'bag' %}
+        <h4>Your bag is waiting.</h4>
+        <p>Add something good for your next everyday.</p>
+        <a class="button button-dark" href="{{ routes.all_products_collection_url }}">Start shopping</a>
+      </div>
+    {% else %}
+      <div class="cart-items">
+        {% for item in cart.items %}
+          <div class="cart-item">
+            <a href="{{ item.url }}">
+              {% if item.image %}{{ item.image | image_url: width: 180 | image_tag: width: 90, height: 112, alt: item.title, loading: 'lazy' }}{% endif %}
+            </a>
+            <div>
+              <a href="{{ item.url }}"><strong>{{ item.product.title }}</strong></a>
+              {% unless item.product.has_only_default_variant %}<span>{{ item.variant.title }}</span>{% endunless %}
+              <small>Qty {{ item.quantity }}</small>
+              <button class="cart-remove" type="button" data-cart-remove data-line="{{ forloop.index }}">Remove</button>
+            </div>
+            <b>{{ item.final_line_price | money }}</b>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="cart-summary">
+        <div><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
+        <p>Shipping and taxes calculated at checkout.</p>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button class="button button-dark" type="submit" name="checkout">Checkout {% render 'icon', name: 'arrow-right' %}</button>
+        </form>
+        <a class="view-cart" href="{{ routes.cart_url }}">View bag</a>
+      </div>
+    {% endif %}
+  </aside>
+</div>
+
+{% schema %}
+{ "name": "Cart drawer", "settings": [] }
+{% endschema %}

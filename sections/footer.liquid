@@ -1,0 +1,52 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="footer-logo-wrap" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home">
+        {% if settings.logo != blank %}
+          {{ settings.logo | image_url: width: 420 | image_tag: widths: '220, 320, 420', alt: shop.name, loading: 'lazy' }}
+        {% else %}
+          <img src="{{ 'ankur-logo.jpeg' | asset_url }}" width="420" height="210" alt="{{ shop.name | escape }}" loading="lazy">
+        {% endif %}
+      </a>
+      <p>{{ section.settings.tagline }}</p>
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+    </div>
+
+    {% for block in section.blocks %}
+      <div {{ block.shopify_attributes }}>
+        <strong>{{ block.settings.heading }}</strong>
+        {% if block.settings.menu != blank %}
+          {% for link in block.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <div>
+      <strong>{{ section.settings.social_heading }}</strong>
+      {% if settings.social_instagram != blank %}<a href="{{ settings.social_instagram }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
+      {% if settings.social_facebook != blank %}<a href="{{ settings.social_facebook }}" rel="noopener" target="_blank">Facebook</a>{% endif %}
+      <a href="{{ routes.root_url }}pages/about-us">Our story</a>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Everyday clothing for every kind of day." },
+    { "type": "text", "id": "social_heading", "label": "Social heading", "default": "Follow along" }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ]
+}
+{% endschema %}

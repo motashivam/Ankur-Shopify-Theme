@@ -1,0 +1,5 @@
+.git/
+.shopify/
+.gitignore
+README.md
+*.zip

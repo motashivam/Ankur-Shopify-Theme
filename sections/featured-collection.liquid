@@ -1,0 +1,71 @@
+{% liquid
+  assign featured_collection = section.settings.collection
+  if featured_collection == blank
+    assign featured_collection = collections.all
+  endif
+%}
+
+<section class="section section-tint" data-product-section>
+  <div class="container">
+    <div class="section-heading">
+      <div><span class="eyebrow">{{ section.settings.eyebrow }}</span><h2>{{ section.settings.heading }}</h2></div>
+      <div class="heading-controls">
+        <button class="circle-button" type="button" aria-label="Previous products" data-slider-direction="previous">{% render 'icon', name: 'chevron-left' %}</button>
+        <button class="circle-button" type="button" aria-label="Next products" data-slider-direction="next">{% render 'icon', name: 'chevron-right' %}</button>
+      </div>
+    </div>
+
+    <div class="product-toolbar">
+      <div class="category-tabs" role="tablist" aria-label="Product filters">
+        <button class="active" type="button" role="tab" aria-selected="true" data-product-filter="all">All</button>
+        {% for block in section.blocks %}
+          <button type="button" role="tab" aria-selected="false" data-product-filter="{{ block.settings.filter | handle }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</button>
+        {% endfor %}
+      </div>
+      <a class="filter-button" href="{{ featured_collection.url }}">{% render 'icon', name: 'sliders' %} View collection {% render 'icon', name: 'chevron-right' %}</a>
+    </div>
+
+    {% if featured_collection.products.size > 0 %}
+      <div class="product-grid product-grid-slider" data-product-grid>
+        {% for product in featured_collection.products limit: section.settings.products_to_show %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="product-grid product-grid-slider" data-product-grid>
+        {% for index in (1..4) %}
+          <article class="product-card demo-product"><div class="product-image">{{ 'product-' | append: index | placeholder_svg_tag: 'placeholder-svg' }}</div><div class="product-info"><h3>Your product</h3><span>Assign a collection in the Theme Editor</span><div class="product-price"><strong>{{ 99900 | money }}</strong></div></div></article>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.button_label != blank %}
+      <div class="center-action"><a class="button button-outline" href="{{ featured_collection.url | default: routes.all_products_collection_url }}">{{ section.settings.button_label }} {% render 'icon', name: 'arrow-right' %}</a></div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Good days start here" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "New in, made easy" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "min": 4, "max": 12, "step": 1, "label": "Products to show", "default": 8 },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop all new arrivals" }
+  ],
+  "blocks": [
+    {
+      "type": "filter",
+      "name": "Filter tab",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Shirts" },
+        { "type": "text", "id": "filter", "label": "Product type or collection handle", "default": "Shirts" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [{ "name": "Featured collection", "blocks": [{ "type": "filter" }, { "type": "filter" }, { "type": "filter" }] }]
+}
+{% endschema %}

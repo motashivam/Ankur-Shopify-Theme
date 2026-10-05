@@ -1,0 +1,79 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {}
+    },
+    "category_strip": {
+      "type": "category-strip",
+      "blocks": {
+        "shirts": { "type": "link", "settings": { "label": "Shirts" } },
+        "tshirts": { "type": "link", "settings": { "label": "T-Shirts" } },
+        "jeans": { "type": "link", "settings": { "label": "Jeans" } },
+        "trousers": { "type": "link", "settings": { "label": "Trousers" } },
+        "polos": { "type": "link", "settings": { "label": "Polos" } },
+        "cargos": { "type": "link", "settings": { "label": "Cargos" } },
+        "track_pants": { "type": "link", "settings": { "label": "Track Pants" } }
+      },
+      "block_order": ["shirts", "tshirts", "jeans", "trousers", "polos", "cargos", "track_pants"],
+      "settings": {}
+    },
+    "categories": {
+      "type": "category-cards",
+      "blocks": {
+        "shirts": { "type": "category", "settings": { "heading": "Shirts", "note": "Work to weekend", "link_label": "Shop now" } },
+        "tshirts": { "type": "category", "settings": { "heading": "T-Shirts", "note": "Easy everyday", "link_label": "Shop now" } },
+        "bottomwear": { "type": "category", "settings": { "heading": "Bottomwear", "note": "Built to move", "link_label": "Shop now" } }
+      },
+      "block_order": ["shirts", "tshirts", "bottomwear"],
+      "settings": {}
+    },
+    "featured": {
+      "type": "featured-collection",
+      "blocks": {
+        "shirts": { "type": "filter", "settings": { "label": "Shirts", "filter": "Shirts" } },
+        "tshirts": { "type": "filter", "settings": { "label": "T-Shirts", "filter": "T-Shirts" } },
+        "bottomwear": { "type": "filter", "settings": { "label": "Bottomwear", "filter": "Bottomwear" } }
+      },
+      "block_order": ["shirts", "tshirts", "bottomwear"],
+      "settings": {}
+    },
+    "needs": {
+      "type": "shop-by-need",
+      "blocks": {
+        "everyday": { "type": "need", "settings": { "heading": "Everyday", "detail": "Reliable staples for every day" } },
+        "office": { "type": "need", "settings": { "heading": "Office", "detail": "Polished comfort for workdays" } },
+        "weekend": { "type": "need", "settings": { "heading": "Weekend", "detail": "Relaxed fits, easy plans" } },
+        "travel": { "type": "need", "settings": { "heading": "Travel", "detail": "Comfort that goes further" } }
+      },
+      "block_order": ["everyday", "office", "weekend", "travel"],
+      "settings": {}
+    },
+    "promise": {
+      "type": "promise",
+      "blocks": {
+        "comfort": { "type": "benefit", "settings": { "icon": "truck", "heading": "Easy on you", "text": "Comfort-first fabrics" } },
+        "quality": { "type": "benefit", "settings": { "icon": "sparkles", "heading": "Made to last", "text": "Quality you can feel" } },
+        "honest": { "type": "benefit", "settings": { "icon": "check", "heading": "Simply Ankur", "text": "Honest everyday style" } }
+      },
+      "block_order": ["comfort", "quality", "honest"],
+      "settings": {}
+    },
+    "price_links": {
+      "type": "price-links",
+      "blocks": {
+        "under_799": { "type": "link", "settings": { "label": "Under Rs. 799" } },
+        "under_999": { "type": "link", "settings": { "label": "Under Rs. 999" } },
+        "under_1499": { "type": "link", "settings": { "label": "Under Rs. 1499" } },
+        "premium": { "type": "link", "settings": { "label": "Premium picks" } }
+      },
+      "block_order": ["under_799", "under_999", "under_1499", "premium"],
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": ["hero", "category_strip", "categories", "featured", "needs", "promise", "price_links", "newsletter"]
+}

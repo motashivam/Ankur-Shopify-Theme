@@ -1,0 +1,124 @@
+{% liquid
+  assign logo = settings.logo
+  assign main_menu = section.settings.menu
+%}
+
+{% if section.settings.show_announcement and section.settings.announcement_text != blank %}
+  <div class="announcement" role="region" aria-label="Announcement">
+    <span>{{ section.settings.announcement_text }}</span>
+    {% if section.settings.announcement_link_label != blank %}
+      <a class="announcement-link" href="{{ section.settings.announcement_link | default: routes.all_products_collection_url }}">
+        {{ section.settings.announcement_link_label }}
+        {% render 'icon', name: 'arrow-right' %}
+      </a>
+    {% endif %}
+  </div>
+{% endif %}
+
+<header class="site-header" data-site-header>
+  <div class="header-main container">
+    <button class="icon-button mobile-only" type="button" aria-label="Open menu" aria-expanded="false" data-mobile-menu-open>
+      {% render 'icon', name: 'menu' %}
+    </button>
+
+    <a class="brand-mark" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home" style="--logo-width: {{ settings.logo_width }}px">
+      {% if logo != blank %}
+        {{ logo | image_url: width: 520 | image_tag: widths: '200, 300, 400, 520', width: logo.width, height: logo.height, alt: shop.name, loading: 'eager' }}
+      {% else %}
+        <img src="{{ 'ankur-logo.jpeg' | asset_url }}" width="520" height="260" alt="{{ shop.name | escape }}" loading="eager">
+      {% endif %}
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {% if main_menu != blank %}
+        {% for link in main_menu.links %}
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>
+            {{ link.title }}
+            {% if link.links != blank %}{% render 'icon', name: 'chevron-down' %}{% endif %}
+          </a>
+        {% endfor %}
+      {% else %}
+        <a href="{{ routes.all_products_collection_url }}">Shop all</a>
+        <a href="{{ routes.collections_url }}">Collections</a>
+        <a href="{{ routes.search_url }}">Search</a>
+      {% endif %}
+    </nav>
+
+    <div class="header-actions">
+      <button class="action-link search-toggle" type="button" aria-label="Search" aria-expanded="false" data-search-toggle>
+        {% render 'icon', name: 'search' %}<span>Search</span>
+      </button>
+      {% if section.settings.show_account %}
+        <a class="action-link desktop-only" href="{{ routes.account_url }}" aria-label="Account">
+          {% render 'icon', name: 'user' %}<span>Account</span>
+        </a>
+      {% endif %}
+      <button class="action-link bag-action" type="button" aria-label="Shopping bag with {{ cart.item_count }} items" aria-expanded="false" data-cart-open>
+        {% render 'icon', name: 'bag' %}<span class="desktop-only">Bag</span>
+        <b data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</b>
+      </button>
+    </div>
+  </div>
+
+  <div class="search-panel" data-search-panel hidden>
+    <form class="container search-inner" action="{{ routes.search_url }}" method="get" role="search">
+      {% render 'icon', name: 'search' %}
+      <input name="q" type="search" value="{{ search.terms | escape }}" placeholder="Search shirts, jeans, polos..." aria-label="Search products" data-search-input>
+      <input type="hidden" name="type" value="product">
+      <button type="button" aria-label="Close search" data-search-close>{% render 'icon', name: 'close' %}</button>
+      <div class="search-suggestions">
+        <span>Trending</span>
+        {% assign suggestions = section.settings.search_terms | split: ',' %}
+        {% for term in suggestions %}
+          {% assign clean_term = term | strip %}
+          {% if clean_term != blank %}<a href="{{ routes.search_url }}?type=product&q={{ clean_term | url_encode }}">{{ clean_term }}</a>{% endif %}
+        {% endfor %}
+      </div>
+    </form>
+  </div>
+</header>
+
+<div class="mobile-menu-overlay" data-mobile-menu hidden>
+  <aside class="mobile-menu" aria-label="Mobile navigation" aria-modal="true" role="dialog" tabindex="-1">
+    <div class="mobile-menu-head">
+      <span>Shop {{ shop.name }}</span>
+      <button type="button" aria-label="Close menu" data-mobile-menu-close>{% render 'icon', name: 'close' %}</button>
+    </div>
+    {% if main_menu != blank %}
+      {% for link in main_menu.links %}
+        <a href="{{ link.url }}">{{ link.title }}{% render 'icon', name: 'chevron-right' %}</a>
+      {% endfor %}
+    {% else %}
+      <a href="{{ routes.all_products_collection_url }}">Shop all{% render 'icon', name: 'chevron-right' %}</a>
+      <a href="{{ routes.collections_url }}">Collections{% render 'icon', name: 'chevron-right' %}</a>
+    {% endif %}
+    <div class="mobile-menu-note">{{ section.settings.mobile_note }}</div>
+  </aside>
+</div>
+
+{% if section.settings.show_mobile_nav %}
+  <nav class="mobile-bottom-nav" aria-label="Quick navigation">
+    <a href="{{ routes.root_url }}">{% render 'icon', name: 'sparkles' %}<span>Home</span></a>
+    <a href="{{ routes.all_products_collection_url }}">{% render 'icon', name: 'bag' %}<span>Shop</span></a>
+    <button type="button" data-search-toggle>{% render 'icon', name: 'search' %}<span>Search</span></button>
+    <a href="{{ routes.account_url }}">{% render 'icon', name: 'heart' %}<span>Account</span></a>
+    <button type="button" data-cart-open>{% render 'icon', name: 'bag' %}<span>Bag</span></button>
+  </nav>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "checkbox", "id": "show_announcement", "label": "Show announcement", "default": true },
+    { "type": "text", "id": "announcement_text", "label": "Announcement", "default": "Complimentary shipping on orders over Rs. 999" },
+    { "type": "text", "id": "announcement_link_label", "label": "Announcement link label", "default": "Explore everyday essentials" },
+    { "type": "url", "id": "announcement_link", "label": "Announcement link" },
+    { "type": "link_list", "id": "menu", "label": "Main menu" },
+    { "type": "text", "id": "search_terms", "label": "Search suggestions", "default": "Shirts, Polo T-Shirts, Jeans, Trousers", "info": "Separate terms with commas." },
+    { "type": "checkbox", "id": "show_account", "label": "Show account link", "default": true },
+    { "type": "checkbox", "id": "show_mobile_nav", "label": "Show mobile bottom navigation", "default": true },
+    { "type": "text", "id": "mobile_note", "label": "Mobile menu note", "default": "Everyday clothing for every kind of day." }
+  ]
+}
+{% endschema %}

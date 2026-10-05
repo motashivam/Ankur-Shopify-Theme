@@ -1,0 +1,26 @@
+{
+  "current": {
+    "color_background": "#f8f6ef",
+    "color_surface": "#f1ede4",
+    "color_primary": "#2f4858",
+    "color_ink": "#24313a",
+    "color_muted": "#68737a",
+    "color_accent": "#c9af8b",
+    "color_border": "#ddd7cb",
+    "logo_width": 190,
+    "page_width": 1200
+  },
+  "presets": {
+    "Ankur": {
+      "color_background": "#f8f6ef",
+      "color_surface": "#f1ede4",
+      "color_primary": "#2f4858",
+      "color_ink": "#24313a",
+      "color_muted": "#68737a",
+      "color_accent": "#c9af8b",
+      "color_border": "#ddd7cb",
+      "logo_width": 190,
+      "page_width": 1200
+    }
+  }
+}

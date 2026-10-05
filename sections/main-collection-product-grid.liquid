@@ -1,0 +1,58 @@
+<section>
+  <header class="page-header">
+    <div class="container">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h1>{{ collection.title }}</h1>
+      {% if collection.description != blank %}<div class="rte">{{ collection.description }}</div>{% endif %}
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="collection-toolbar">
+      <span>{{ collection.products_count }} {% if collection.products_count == 1 %}product{% else %}products{% endif %}</span>
+      <form class="sort-form" method="get">
+        <label for="SortBy">Sort by</label>
+        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+        <select id="SortBy" name="sort_by" data-sort-select>
+          {% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}
+        </select>
+      </form>
+    </div>
+
+    <div class="collection-layout">
+      {% if section.settings.show_tag_filters and collection.all_tags.size > 0 %}
+        <nav class="collection-filters" aria-label="Filter products">
+          <strong>Filter</strong>
+          <a href="{{ collection.url }}"{% if current_tags == blank %} class="active"{% endif %}>All</a>
+          {% for tag in collection.all_tags %}
+            {% if current_tags contains tag %}{{ tag | link_to_remove_tag: tag | replace: '<a ', '<a class="active" ' }}{% else %}{{ tag | link_to_add_tag: tag }}{% endif %}
+          {% endfor %}
+        </nav>
+      {% endif %}
+
+      <div>
+        {% paginate collection.products by section.settings.products_per_page %}
+          {% if collection.products.size > 0 %}
+            <div class="product-grid">
+              {% for product in collection.products %}{% render 'product-card', product: product %}{% endfor %}
+            </div>
+            {% render 'pagination', paginate: paginate %}
+          {% else %}
+            <div class="section-empty"><p>No products found in this collection.</p></div>
+          {% endif %}
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection products",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Made for every day" },
+    { "type": "checkbox", "id": "show_tag_filters", "label": "Show tag filters", "default": true },
+    { "type": "range", "id": "products_per_page", "min": 8, "max": 32, "step": 4, "label": "Products per page", "default": 16 }
+  ]
+}
+{% endschema %}

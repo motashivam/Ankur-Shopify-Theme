@@ -1,0 +1,25 @@
+<nav class="category-strip container" aria-label="{{ section.settings.label }}">
+  {% if section.settings.label != blank %}<span class="strip-label">{{ section.settings.label }}</span>{% endif %}
+  {% for block in section.blocks %}
+    <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>{{ block.settings.label }} {% render 'icon', name: 'arrow-right' %}</a>
+  {% endfor %}
+</nav>
+
+{% schema %}
+{
+  "name": "Category strip",
+  "settings": [{ "type": "text", "id": "label", "label": "Label", "default": "Shop the essentials" }],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Category link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Shirts" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 9,
+  "presets": [{ "name": "Category strip", "blocks": [{ "type": "link" }, { "type": "link" }, { "type": "link" }] }]
+}
+{% endschema %}

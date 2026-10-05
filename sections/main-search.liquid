@@ -1,0 +1,38 @@
+<section class="search-page">
+  <header class="page-header">
+    <div class="container">
+      <span class="eyebrow">Find your everyday</span>
+      <h1>{% if search.performed %}Search results{% else %}Search{% endif %}</h1>
+      <form class="search-page-form" action="{{ routes.search_url }}" method="get" role="search">
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products" aria-label="Search products">
+        <input type="hidden" name="type" value="product">
+        <button type="submit" aria-label="Search">{% render 'icon', name: 'search' %}</button>
+      </form>
+    </div>
+  </header>
+
+  {% if search.performed %}
+    <div class="container search-results">
+      <p class="eyebrow">{{ search.results_count }} results for "{{ search.terms | escape }}"</p>
+      {% paginate search.results by section.settings.results_per_page %}
+        {% if search.results_count > 0 %}
+          <div class="product-grid">
+            {% for item in search.results %}
+              {% if item.object_type == 'product' %}{% render 'product-card', product: item %}{% endif %}
+            {% endfor %}
+          </div>
+          {% render 'pagination', paginate: paginate %}
+        {% else %}
+          <div class="section-empty"><p>No products matched your search. Try a different term.</p></div>
+        {% endif %}
+      {% endpaginate %}
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": [{ "type": "range", "id": "results_per_page", "min": 8, "max": 32, "step": 4, "label": "Results per page", "default": 16 }]
+}
+{% endschema %}
