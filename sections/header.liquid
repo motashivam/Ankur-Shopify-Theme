@@ -1,6 +1,7 @@
 {% liquid
   assign logo = settings.logo
   assign main_menu = section.settings.menu
+  assign wishlist_url = section.settings.wishlist_link | default: routes.account_url
 %}
 
 {% if section.settings.show_announcement and section.settings.announcement_text != blank %}
@@ -17,11 +18,13 @@
 
 <header class="site-header" data-site-header>
   <div class="header-main container">
-    <button class="icon-button mobile-only" type="button" aria-label="Open menu" aria-expanded="false" data-mobile-menu-open>
-      {% render 'icon', name: 'menu' %}
-    </button>
+    <div class="header-left">
+      <button class="icon-button menu-trigger" type="button" aria-label="Open menu" aria-expanded="false" data-mobile-menu-open>
+        {% render 'icon', name: 'menu' %}<span>Menu</span>
+      </button>
+    </div>
 
-    <a class="brand-mark" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home" style="--logo-width: {{ settings.logo_width }}px">
+    <a class="header-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home" style="--logo-width: {{ settings.logo_width }}px">
       {% if logo != blank %}
         {{ logo | image_url: width: 520 | image_tag: widths: '200, 300, 400, 520', width: logo.width, height: logo.height, alt: shop.name, loading: 'eager' }}
       {% else %}
@@ -29,22 +32,7 @@
       {% endif %}
     </a>
 
-    <nav class="desktop-nav" aria-label="Main navigation">
-      {% if main_menu != blank %}
-        {% for link in main_menu.links %}
-          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>
-            {{ link.title }}
-            {% if link.links != blank %}{% render 'icon', name: 'chevron-down' %}{% endif %}
-          </a>
-        {% endfor %}
-      {% else %}
-        <a href="{{ routes.all_products_collection_url }}">Shop all</a>
-        <a href="{{ routes.collections_url }}">Collections</a>
-        <a href="{{ routes.search_url }}">Search</a>
-      {% endif %}
-    </nav>
-
-    <div class="header-actions">
+    <div class="header-right">
       <button class="action-link search-toggle" type="button" aria-label="Search" aria-expanded="false" data-search-toggle>
         {% render 'icon', name: 'search' %}<span>Search</span>
       </button>
@@ -53,6 +41,9 @@
           {% render 'icon', name: 'user' %}<span>Account</span>
         </a>
       {% endif %}
+      <a class="action-link desktop-only" href="{{ wishlist_url }}" aria-label="Wishlist">
+        {% render 'icon', name: 'heart' %}<span>Wishlist</span>
+      </a>
       <button class="action-link bag-action" type="button" aria-label="Shopping bag with {{ cart.item_count }} items" aria-expanded="false" data-cart-open>
         {% render 'icon', name: 'bag' %}<span class="desktop-only">Bag</span>
         <b data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</b>
@@ -117,6 +108,7 @@
     { "type": "link_list", "id": "menu", "label": "Main menu" },
     { "type": "text", "id": "search_terms", "label": "Search suggestions", "default": "Shirts, Polo T-Shirts, Jeans, Trousers", "info": "Separate terms with commas." },
     { "type": "checkbox", "id": "show_account", "label": "Show account link", "default": true },
+    { "type": "url", "id": "wishlist_link", "label": "Wishlist page" },
     { "type": "checkbox", "id": "show_mobile_nav", "label": "Show mobile bottom navigation", "default": true },
     { "type": "text", "id": "mobile_note", "label": "Mobile menu note", "default": "Everyday clothing for every kind of day." }
   ]
