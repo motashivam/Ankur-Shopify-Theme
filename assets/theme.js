@@ -246,6 +246,18 @@
     closeCart();
   });
 
+  const mobileMedia = window.matchMedia('(max-width: 600px)');
+  const footerGroups = qsa('.footer-group');
+  const syncFooterGroups = () => footerGroups.forEach((group) => { group.open = !mobileMedia.matches; });
+  if (footerGroups.length) {
+    syncFooterGroups();
+    mobileMedia.addEventListener?.('change', syncFooterGroups);
+    document.addEventListener('click', (event) => {
+      const summary = event.target instanceof Element ? event.target.closest('.footer-group > summary') : null;
+      if (summary && !mobileMedia.matches) event.preventDefault();
+    });
+  }
+
   restoreWishlist();
   document.addEventListener('shopify:section:load', restoreWishlist);
 })();

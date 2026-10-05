@@ -13,20 +13,30 @@
     </div>
 
     {% for block in section.blocks %}
-      <div {{ block.shopify_attributes }}>
-        <strong>{{ block.settings.heading }}</strong>
-        {% if block.settings.menu != blank %}
-          {% for link in block.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
-        {% endif %}
-      </div>
+      <details class="footer-group" open {{ block.shopify_attributes }}>
+        <summary>
+          <strong>{{ block.settings.heading }}</strong>
+          <span class="footer-group-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="footer-links">
+          {% if block.settings.menu != blank %}
+            {% for link in block.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+          {% endif %}
+        </div>
+      </details>
     {% endfor %}
 
-    <div>
-      <strong>{{ section.settings.social_heading }}</strong>
-      {% if settings.social_instagram != blank %}<a href="{{ settings.social_instagram }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
-      {% if settings.social_facebook != blank %}<a href="{{ settings.social_facebook }}" rel="noopener" target="_blank">Facebook</a>{% endif %}
-      <a href="{{ routes.root_url }}pages/about-us">Our story</a>
-    </div>
+    <details class="footer-group" open>
+      <summary>
+        <strong>{{ section.settings.social_heading }}</strong>
+        <span class="footer-group-toggle" aria-hidden="true"></span>
+      </summary>
+      <div class="footer-links">
+        {% if settings.social_instagram != blank %}<a href="{{ settings.social_instagram }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
+        {% if settings.social_facebook != blank %}<a href="{{ settings.social_facebook }}" rel="noopener" target="_blank">Facebook</a>{% endif %}
+        <a href="{{ routes.root_url }}pages/about-us">Our story</a>
+      </div>
+    </details>
   </div>
 </footer>
 
