@@ -28,7 +28,7 @@
       {% if logo != blank %}
         {{ logo | image_url: width: 520 | image_tag: widths: '200, 300, 400, 520', width: logo.width, height: logo.height, alt: shop.name, loading: 'eager' }}
       {% else %}
-        <img src="{{ 'ankur-logo.jpeg' | asset_url }}" width="520" height="260" alt="{{ shop.name | escape }}" loading="eager">
+        <img src="{{ 'ankur-logo-transparent.png' | asset_url }}" width="1271" height="544" alt="{{ shop.name | escape }}" loading="eager">
       {% endif %}
     </a>
 
