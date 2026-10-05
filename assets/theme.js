@@ -23,13 +23,31 @@
     setExpanded(qsa('[data-search-toggle]'), false);
   }
 
+  function syncSearchClear() {
+    const input = qs('[data-search-input]');
+    const clear = qs('[data-search-clear]');
+    if (!input || !clear) return;
+    clear.hidden = !input.value.trim();
+  }
+
+  function clearSearchInput() {
+    const input = qs('[data-search-input]');
+    if (!input) return;
+    input.value = '';
+    syncSearchClear();
+    input.focus();
+  }
+
   function toggleSearch() {
     const panel = qs('[data-search-panel]');
     if (!panel) return;
     const willOpen = panel.hidden;
     panel.hidden = !willOpen;
     setExpanded(qsa('[data-search-toggle]'), willOpen);
-    if (willOpen) window.setTimeout(() => qs('[data-search-input]', panel)?.focus(), 20);
+    if (willOpen) {
+      syncSearchClear();
+      window.setTimeout(() => qs('[data-search-input]', panel)?.focus(), 20);
+    }
   }
 
   function openMobileMenu() {
@@ -192,6 +210,7 @@
     const target = event.target;
     if (!(target instanceof Element)) return;
     if (target.closest('[data-search-toggle]')) toggleSearch();
+    if (target.closest('[data-search-clear]')) clearSearchInput();
     if (target.closest('[data-search-close]')) closeSearch();
     if (target.closest('[data-mobile-menu-open]')) openMobileMenu();
     if (target.closest('[data-mobile-menu-close]')) closeMobileMenu();
@@ -257,6 +276,9 @@
       if (summary && !mobileMedia.matches) event.preventDefault();
     });
   }
+
+  qs('[data-search-input]')?.addEventListener('input', syncSearchClear);
+  syncSearchClear();
 
   restoreWishlist();
   document.addEventListener('shopify:section:load', restoreWishlist);
