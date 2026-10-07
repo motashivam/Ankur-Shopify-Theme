@@ -58,5 +58,11 @@
       { "type": "url", "id": "whatsapp_group_url", "label": "WhatsApp group invite URL", "info": "Group invite link, shown as Join WhatsApp Group.", "default": "https://chat.whatsapp.com/FFGOA2IcBJk9RBFAxV3Sif" },
       { "type": "url", "id": "google_maps_url", "label": "Google Maps link", "default": "https://maps.app.goo.gl/ALTLAf8Q87bmDb3dA" }
     ]
+  },
+  {
+    "name": "Navratri edition",
+    "settings": [
+      { "type": "checkbox", "id": "enable_navratri_mode", "label": "Enable Navratri mode", "info": "Off returns the theme to the normal ANKUR design exactly.", "default": false }
+    ]
   }
 ]

@@ -1,0 +1,47 @@
+{%- if settings.enable_navratri_mode -%}
+<section class="hero container navratri-hero">
+  <div class="hero-copy">
+    <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+    <h1>{{ section.settings.heading | newline_to_br }}</h1>
+    {%- if section.settings.subtext != blank -%}<p>{{ section.settings.subtext }}</p>{%- endif -%}
+    <div class="hero-actions">
+      {%- if section.settings.cta_label != blank -%}
+        <a class="button button-dark" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">{{ section.settings.cta_label }} {% render 'icon', name: 'arrow-right' %}</a>
+      {%- endif -%}
+    </div>
+  </div>
+  {%- if section.settings.image != blank -%}
+    <div class="hero-visual">
+      <picture>
+        {%- if section.settings.mobile_image != blank -%}
+          <source media="(max-width: 600px)" srcset="{{ section.settings.mobile_image | image_url: width: 800 }}">
+        {%- endif -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: widths: '520, 760, 1000, 1400', sizes: '(max-width: 850px) 100vw, 55vw', alt: section.settings.image.alt | default: 'Navratri edit', loading: 'eager', fetchpriority: 'high' }}
+      </picture>
+    </div>
+  {%- endif -%}
+</section>
+
+<style>
+  .navratri-hero .eyebrow { color: #8E3E45; }
+  .navratri-hero .hero-visual::after { border-color: #C9A15B; }
+  .navratri-hero .button-dark { background: #8E3E45; }
+  .navratri-hero .button-dark:hover { background: #2f4858; }
+</style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Navratri hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Navratri Edit 2026" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Colour for the season.\nComfort for every day." },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Easy styles for festive days, evening outings and everything in between." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop Navratri picks" },
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "image_picker", "id": "image", "label": "Desktop image", "info": "Everyday menswear with subtle festive atmosphere. Use a separate image, not the homepage hero image." },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" }
+  ],
+  "presets": [{ "name": "Navratri hero" }]
+}
+{% endschema %}

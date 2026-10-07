@@ -1,0 +1,16 @@
+.navratri-edition .announcement { border-bottom: 2px solid #C9A15B; }
+.navratri-edition .announcement-link { color: #C9A15B; }
+.navratri-edition .site-header { border-bottom: 1px solid #C9A15B; }
+.navratri-edition .desktop-nav a:hover { color: #8E3E45; }
+.navratri-edition .desktop-nav a::after { background: #8E3E45; }
+.navratri-edition .category-nav { border-top: 1px solid #C9A15B; }
+.navratri-edition .section-tint { background: #F6F0E1; }
+.navratri-edition .site-footer { border-top: 2px solid #C9A15B; }
+.navratri-edition .button-dark:hover { background: #8E3E45; }
+.navratri-edition .product-price small { color: #8E3E45; }
+.navratri-divider { display: flex; align-items: center; gap: 12px; margin: 0 auto; max-width: 320px; color: #C9A15B; }
+.navratri-divider::before, .navratri-divider::after { content: ''; height: 1px; flex: 1; background: #C9A15B; }
+.navratri-divider span { font-size: 10px; line-height: 1; }
+@media (max-width: 600px) {
+  .navratri-divider { max-width: 220px; }
+}

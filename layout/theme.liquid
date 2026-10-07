@@ -34,6 +34,9 @@
       }
     </style>
     {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {%- if settings.enable_navratri_mode -%}
+      {{ 'navratri.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
     <script>document.documentElement.classList.remove('no-js');</script>
     <script>
       window.AnkurTheme = {
@@ -50,7 +53,7 @@
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   </head>
 
-  <body class="template-{{ request.page_type | handle }}">
+  <body class="template-{{ request.page_type | handle }}{% if settings.enable_navratri_mode %} navratri-edition{% endif %}">
     <a class="skip-to-content-link" href="#MainContent">Skip to content</a>
     {% sections 'header-group' %}
 
