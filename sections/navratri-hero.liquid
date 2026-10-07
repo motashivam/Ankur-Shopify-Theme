@@ -1,8 +1,10 @@
 {% if settings.enable_navratri_mode %}
-<section class="navratri-hero container">
+<section class="hero navratri-hero container">
   <div class="hero-copy">
+    <span class="eyebrow">NAVRATRI EDIT</span>
     {% if settings.navratri_hero_heading != blank %}<h1>{{ settings.navratri_hero_heading }}</h1>{% endif %}
     {% if settings.navratri_hero_subtext != blank %}<p>{{ settings.navratri_hero_subtext }}</p>{% endif %}
+    <span class="navratri-rule" aria-hidden="true"></span>
     <div class="hero-actions">
       {% if settings.navratri_hero_cta1 != blank %}
         <a class="button button-dark" href="{{ settings.navratri_hero_cta1_link | default: routes.all_products_collection_url }}">{{ settings.navratri_hero_cta1 }} {% render 'icon', name: 'arrow-right' %}</a>
@@ -13,17 +15,23 @@
     </div>
     <div class="hero-assurance">
       <span>{% render 'icon', name: 'check' %} Easy everyday fits</span>
-      <span>{% render 'icon', name: 'check' %} Made for festive days</span>
+      <span>{% render 'icon', name: 'check' %} Festive colours, honest prices</span>
     </div>
   </div>
 
   <div class="hero-visual">
-    {% if settings.navratri_hero_image != blank %}
-      {{ settings.navratri_hero_image | image_url: width: 1400 | image_tag: widths: '520, 760, 1000, 1400', sizes: '(max-width: 767px) 100vw, 55vw', alt: 'Navratri festive styles', loading: 'eager', fetchpriority: 'high' }}
+    {% if settings.navratri_hero_image != blank or settings.navratri_hero_image_mobile != blank %}
+      {% assign navratri_img = settings.navratri_hero_image | default: settings.navratri_hero_image_mobile %}
+      <picture>
+        {% if settings.navratri_hero_image_mobile != blank %}
+          <source media="(max-width: 767px)" srcset="{{ settings.navratri_hero_image_mobile | image_url: width: 800 }}">
+        {% endif %}
+        {{ navratri_img | image_url: width: 1400 | image_tag: widths: '520, 760, 1000, 1400', sizes: '(max-width: 850px) 100vw, 55vw', alt: 'Daily wear with festive colour', loading: 'eager', fetchpriority: 'high' }}
+      </picture>
     {% else %}
       <img src="{{ 'fallback-shirts.jpg' | asset_url }}" width="1400" height="2100" alt="Man wearing a smart everyday shirt" loading="eager" fetchpriority="high">
     {% endif %}
-    <div class="hero-caption"><span>Navratri</span><span>Edit</span></div>
+    <div class="hero-caption"><span>01 / 09</span><span>The festive edit</span></div>
   </div>
 </section>
 {% endif %}

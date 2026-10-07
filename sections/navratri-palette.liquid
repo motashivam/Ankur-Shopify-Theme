@@ -1,0 +1,43 @@
+{% if settings.enable_navratri_mode %}
+<section class="navratri-palette section container">
+  <div class="section-heading">
+    <div><h2>{{ settings.navratri_colors_heading }}</h2></div>
+  </div>
+  <div class="navratri-palette-grid">
+    {% if settings.navratri_palette_maroon_link != blank %}
+      <a class="navratri-palette-tile" href="{{ settings.navratri_palette_maroon_link }}"><span class="navratri-palette-swatch" style="background: #7a263a;"></span><span class="navratri-palette-name">MAROON</span></a>
+    {% else %}
+      <span class="navratri-palette-tile"><span class="navratri-palette-swatch" style="background: #7a263a;"></span><span class="navratri-palette-name">MAROON</span></span>
+    {% endif %}
+    {% if settings.navratri_palette_mustard_link != blank %}
+      <a class="navratri-palette-tile" href="{{ settings.navratri_palette_mustard_link }}"><span class="navratri-palette-swatch" style="background: #c99327;"></span><span class="navratri-palette-name">MUSTARD</span></a>
+    {% else %}
+      <span class="navratri-palette-tile"><span class="navratri-palette-swatch" style="background: #c99327;"></span><span class="navratri-palette-name">MUSTARD</span></span>
+    {% endif %}
+    {% if settings.navratri_palette_navy_link != blank %}
+      <a class="navratri-palette-tile" href="{{ settings.navratri_palette_navy_link }}"><span class="navratri-palette-swatch" style="background: #2f4858;"></span><span class="navratri-palette-name">NAVY</span></a>
+    {% else %}
+      <span class="navratri-palette-tile"><span class="navratri-palette-swatch" style="background: #2f4858;"></span><span class="navratri-palette-name">NAVY</span></span>
+    {% endif %}
+    {% if settings.navratri_palette_olive_link != blank %}
+      <a class="navratri-palette-tile" href="{{ settings.navratri_palette_olive_link }}"><span class="navratri-palette-swatch" style="background: #6f7442;"></span><span class="navratri-palette-name">OLIVE</span></a>
+    {% else %}
+      <span class="navratri-palette-tile"><span class="navratri-palette-swatch" style="background: #6f7442;"></span><span class="navratri-palette-name">OLIVE</span></span>
+    {% endif %}
+    {% if settings.navratri_palette_ivory_link != blank %}
+      <a class="navratri-palette-tile" href="{{ settings.navratri_palette_ivory_link }}"><span class="navratri-palette-swatch" style="background: #efe9dc;"></span><span class="navratri-palette-name">IVORY</span></a>
+    {% else %}
+      <span class="navratri-palette-tile"><span class="navratri-palette-swatch" style="background: #efe9dc;"></span><span class="navratri-palette-name">IVORY</span></span>
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Navratri Palette",
+  "tag": "section",
+  "settings": [],
+  "presets": [{ "name": "Navratri Palette" }]
+}
+{% endschema %}

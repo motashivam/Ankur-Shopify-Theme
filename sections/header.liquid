@@ -142,6 +142,9 @@
     <a class="menu-action-link" href="{{ routes.account_url }}">Account {% render 'icon', name: 'chevron-right' %}</a>
     <a class="menu-action-link" href="{{ wishlist_url }}">Wishlist {% render 'icon', name: 'chevron-right' %}</a>
     <a class="menu-action-link" href="{{ routes.root_url }}pages/contact">Contact {% render 'icon', name: 'chevron-right' %}</a>
+    {% if settings.enable_navratri_mode and settings.navratri_hero_cta1_link != blank %}
+      <a class="menu-action-link navratri-nav-item" href="{{ settings.navratri_hero_cta1_link }}">Navratri Edit {% render 'icon', name: 'chevron-right' %}</a>
+    {% endif %}
 
     <div class="mobile-menu-note">{{ section.settings.mobile_note }}</div>
   </aside>
