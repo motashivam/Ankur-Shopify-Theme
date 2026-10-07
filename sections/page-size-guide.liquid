@@ -4,10 +4,15 @@
     {%- if section.settings.intro != blank -%}
       <div class="page-size-intro">{{ section.settings.intro }}</div>
     {%- endif -%}
+    {%- if section.blocks.size == 0 -%}
+      {%- if request.design_mode -%}
+        <p class="page-size-empty">Add size rows from the Theme Editor.</p>
+      {%- endif -%}
+    {%- else -%}
     <div class="page-size-tablewrap">
       <table class="page-size-table">
         <thead>
-          <tr><th scope="col">Size</th><th scope="col">Chest</th><th scope="col">Waist</th><th scope="col">Length</th></tr>
+          <tr><th scope="col">Size</th><th scope="col">Chest ({{ section.settings.unit }})</th><th scope="col">Waist ({{ section.settings.unit }})</th><th scope="col">Length ({{ section.settings.unit }})</th></tr>
         </thead>
         <tbody>
           {%- for block in section.blocks -%}
@@ -22,6 +27,7 @@
         </tbody>
       </table>
     </div>
+    {%- endif -%}
     {%- if section.settings.note != blank -%}
       <div class="page-size-note">{{ section.settings.note }}</div>
     {%- endif -%}
@@ -41,6 +47,7 @@
   .page-size-table tbody th { font-weight: 600; }
   .page-size-note { margin: 18px 0 0; color: #68737a; font-size: 14px; line-height: 1.7; }
   .page-size-note p { margin: 0 0 10px; }
+  .page-size-empty { margin: 0; padding: 18px; border: 1px dashed #c9af8b; border-radius: 4px; color: #68737a; font-size: 14px; }
   @media (max-width: 600px) {
     .page-size-table th, .page-size-table td { padding: 11px 12px; font-size: 13px; }
   }
@@ -51,6 +58,7 @@
   "name": "Size guide",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "SIZE GUIDE" },
+    { "type": "select", "id": "unit", "label": "Measurement unit", "options": [{ "value": "in", "label": "Inches" }, { "value": "cm", "label": "Centimeters" }], "default": "in" },
     { "type": "richtext", "id": "intro", "label": "Intro text" },
     { "type": "richtext", "id": "note", "label": "Note", "default": "<p>Fit can vary by style. When in doubt, visit the store or call us and we will help you pick the right size.</p>" }
   ],

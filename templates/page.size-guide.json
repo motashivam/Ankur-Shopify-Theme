@@ -12,12 +12,13 @@
     "sizeguide": {
       "type": "page-size-guide",
       "blocks": {
-        "row-1": { "type": "size_row", "settings": {} },
-        "row-2": { "type": "size_row", "settings": {} },
-        "row-3": { "type": "size_row", "settings": {} },
-        "row-4": { "type": "size_row", "settings": {} }
+        "row-s": { "type": "size_row", "settings": { "size": "S", "chest": "", "waist": "", "length": "" } },
+        "row-m": { "type": "size_row", "settings": { "size": "M", "chest": "", "waist": "", "length": "" } },
+        "row-l": { "type": "size_row", "settings": { "size": "L", "chest": "", "waist": "", "length": "" } },
+        "row-xl": { "type": "size_row", "settings": { "size": "XL", "chest": "", "waist": "", "length": "" } },
+        "row-xxl": { "type": "size_row", "settings": { "size": "XXL", "chest": "", "waist": "", "length": "" } }
       },
-      "block_order": ["row-1", "row-2", "row-3", "row-4"],
+      "block_order": ["row-s", "row-m", "row-l", "row-xl", "row-xxl"],
       "settings": {}
     }
   },
