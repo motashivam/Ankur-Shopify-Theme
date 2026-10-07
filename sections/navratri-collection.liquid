@@ -1,0 +1,24 @@
+{% if settings.enable_navratri_mode and settings.navratri_collection != blank %}
+<section class="navratri-collection section container" data-navratri-collection>
+  <div class="section-heading">
+    <h2>{{ settings.navratri_collection_heading | escape }}</h2>
+  </div>
+  {% if settings.navratri_collection_subtext != blank %}
+    <p style="color: var(--navratri-plum); font-size: 15px; margin-bottom: 32px; max-width: 600px;">{{ settings.navratri_collection_subtext }}</p>
+  {% endif %}
+  <div class="product-grid">
+    {% for product in collections[settings.navratri_collection.handle].products limit: 8 %}
+      {% render 'product-card', product: product, show_vendor: settings.show_vendor %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Navratri Collection",
+  "tag": "section",
+  "settings": [],
+  "presets": [{ "name": "Navratri Collection" }]
+}
+{% endschema %}

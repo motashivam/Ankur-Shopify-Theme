@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap');
 
-:root { font-family: 'DM Sans', sans-serif; color: var(--color-ink, #24313a); background: var(--color-background, #f8f6ef); font-synthesis: none; }
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--color-ink, #24313a);
+  background: var(--color-background, #f8f6ef);
+  font-synthesis: none;
+  --navratri-maroon: #7A263A;
+  --navratri-saffron: #D9822B;
+  --navratri-gold: #C9A15B;
+  --navratri-plum: #69405D;
+}
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; background: var(--color-background, #f8f6ef); }
@@ -781,4 +790,106 @@ h1 em, h2 em, .category-overlay strong, .price-links a { letter-spacing: 0; }
 @media (max-width: 600px) {
   .product-info h3 a { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; padding: 15px 0 0; margin: -15px 0 0; }
   .product-price strong { font-size: 15px; }
+}
+
+/* ===== Navratri Seasonal Edition ===== */
+.navratri-mode .announcement {
+  background: var(--navratri-maroon);
+  color: #f8f6ef;
+  height: auto;
+  padding: 10px 0;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.navratri-mode .announcement > span {
+  width: 100%;
+  display: block;
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+.navratri-mode .announcement-link {
+  color: var(--navratri-gold);
+  font-weight: 600;
+  font-size: 11px;
+}
+.navratri-mode .announcement-link:hover { color: #f8f6ef; }
+
+.navratri-mode .navratri-nav-item {
+  color: var(--navratri-maroon) !important;
+  font-weight: 600;
+}
+.navratri-mode .navratri-nav-item::after { background: var(--navratri-gold) !important; }
+.navratri-mode .navratri-nav-item:hover { color: var(--navratri-maroon) !important; }
+
+.navratri-hero {
+  background: #faf9f5;
+  border-top: 1px solid var(--navratri-gold);
+  border-bottom: 1px solid var(--navratri-gold);
+}
+.navratri-hero .eyebrow { color: var(--navratri-maroon); }
+.navratri-hero h1 { color: var(--navratri-maroon); }
+.navratri-hero h1 em { color: var(--navratri-gold); }
+.navratri-hero p { color: var(--navratri-plum); }
+.navratri-hero .button-dark { background: var(--navratri-maroon); }
+.navratri-hero .button-dark:hover { background: var(--navratri-plum); }
+.navratri-hero .text-button { color: var(--navratri-maroon); }
+.navratri-hero .text-button svg { color: var(--navratri-gold); }
+.navratri-hero .hero-assurance span { color: var(--navratri-plum); }
+.navratri-hero .hero-assurance svg { color: var(--navratri-gold); }
+
+.navratri-collection { background: #faf9f5; }
+.navratri-collection .section-heading h2 { color: var(--navratri-maroon); }
+.navratri-collection .section-heading h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--navratri-gold);
+  margin-top: 8px;
+}
+.navratri-collection .product-card:hover .wish-button { color: var(--navratri-maroon); }
+
+.navratri-colors { background: #faf9f5; }
+.navratri-colors .section-heading h2 { color: var(--navratri-maroon); }
+.navratri-colors .section-heading h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--navratri-gold);
+  margin-top: 8px;
+}
+.navratri-color-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.navratri-color-item { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; padding: 24px 16px; background: #fff; border: 1px solid var(--color-border, #ddd7cb); transition: all .2s ease; }
+.navratri-color-item:hover { border-color: var(--navratri-gold); transform: translateY(-2px); }
+.navratri-color-swatch { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--navratri-gold); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+.navratri-color-name { font-size: 13px; font-weight: 600; color: var(--color-ink); text-transform: capitalize; letter-spacing: .02em; }
+
+.navratri-promo {
+  background: linear-gradient(135deg, #faf9f5 0%, #f5f0e8 100%);
+  border: 1px solid var(--navratri-gold);
+  border-radius: 0;
+  padding: 48px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.navratri-promo::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: repeating-linear-gradient(90deg, var(--navratri-gold), var(--navratri-gold) 8px, transparent 8px, transparent 16px);
+}
+.navratri-promo h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 42px); color: var(--navratri-maroon); margin-bottom: 12px; letter-spacing: -.02em; }
+.navratri-promo p { color: var(--navratri-plum); font-size: 16px; line-height: 1.6; max-width: 500px; margin: 0 auto 24px; }
+.navratri-promo .button { background: var(--navratri-maroon); color: #fff; border-color: var(--navratri-maroon); }
+.navratri-promo .button:hover { background: var(--navratri-plum); border-color: var(--navratri-plum); }
+
+@media (max-width: 767px) {
+  .navratri-color-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .navratri-promo { padding: 32px 20px; }
+}
+@media (max-width: 480px) {
+  .navratri-color-grid { grid-template-columns: repeat(2, 1fr); }
 }
