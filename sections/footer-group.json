@@ -1,13 +1,30 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer group",
   "sections": {
     "footer": {
       "type": "footer",
-      "blocks": {},
-      "block_order": [],
-      "settings": {}
+      "settings": {
+        "tagline": "Everyday clothing made for work, weekends and everything in between.",
+        "email": "",
+        "show_newsletter": false,
+        "newsletter_heading": "Stay updated",
+        "newsletter_text": "New arrivals, everyday styles and offers from Ankur.",
+        "newsletter_placeholder": "Email address",
+        "newsletter_button": "Subscribe"
+      }
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }
