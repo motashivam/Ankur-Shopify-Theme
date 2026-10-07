@@ -24,14 +24,20 @@
           {%- if settings.contact_ashish_phone != blank -%}
             <a class="button button-dark" href="tel:{{ settings.contact_ashish_phone | remove: ' ' }}">Call {{ settings.contact_ashish_name | default: 'Store' }}</a>
           {%- endif -%}
+          {%- if settings.contact_email != blank -%}
+            <a class="button button-outline" href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }} {% render 'icon', name: 'arrow-right' %}</a>
+          {%- endif -%}
           {%- if settings.social_instagram != blank -%}
             <a class="button button-outline" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram {% render 'icon', name: 'arrow-right' %}</a>
           {%- endif -%}
           {%- if settings.social_facebook != blank -%}
             <a class="button button-outline" href="{{ settings.social_facebook }}" target="_blank" rel="noopener">Facebook {% render 'icon', name: 'arrow-right' %}</a>
           {%- endif -%}
-          {%- if settings.social_whatsapp != blank -%}
+          {%- if settings.social_whatsapp != blank and settings.social_whatsapp != settings.whatsapp_group_url -%}
             <a class="button button-outline" href="{{ settings.social_whatsapp }}" target="_blank" rel="noopener">WhatsApp {% render 'icon', name: 'arrow-right' %}</a>
+          {%- endif -%}
+          {%- if settings.whatsapp_group_url != blank -%}
+            <a class="button button-outline" href="{{ settings.whatsapp_group_url }}" target="_blank" rel="noopener">Join WhatsApp Group {% render 'icon', name: 'arrow-right' %}</a>
           {%- endif -%}
           {%- if settings.google_maps_url != blank -%}
             <a class="button button-outline" href="{{ settings.google_maps_url }}" target="_blank" rel="noopener">Get Directions {% render 'icon', name: 'arrow-right' %}</a>

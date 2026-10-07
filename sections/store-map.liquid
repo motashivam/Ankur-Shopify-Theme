@@ -15,14 +15,21 @@
     {%- assign show_fb = false -%}
     {%- if section.settings.show_facebook and settings.social_facebook != blank -%}{%- assign show_fb = true -%}{%- endif -%}
     {%- assign show_wa = false -%}
-    {%- if section.settings.show_whatsapp and settings.social_whatsapp != blank -%}{%- assign show_wa = true -%}{%- endif -%}
-    {%- if show_hem or show_ashish or show_ig or show_fb or show_wa -%}
+    {%- if section.settings.show_whatsapp and settings.social_whatsapp != blank and settings.social_whatsapp != settings.whatsapp_group_url -%}{%- assign show_wa = true -%}{%- endif -%}
+    {%- assign show_email = false -%}
+    {%- if section.settings.show_email and settings.contact_email != blank -%}{%- assign show_email = true -%}{%- endif -%}
+    {%- assign show_wa_group = false -%}
+    {%- if section.settings.show_whatsapp_group and settings.whatsapp_group_url != blank -%}{%- assign show_wa_group = true -%}{%- endif -%}
+    {%- if show_hem or show_ashish or show_email or show_ig or show_fb or show_wa or show_wa_group -%}
       <div class="store-map-links">
         {%- if show_hem -%}
           <a class="button button-outline" href="tel:{{ settings.contact_hem_phone | remove: ' ' }}">{%- if settings.contact_hem_name != blank -%}{{ settings.contact_hem_name }}: {% endif -%}{{ settings.contact_hem_phone }}</a>
         {%- endif -%}
         {%- if show_ashish -%}
           <a class="button button-outline" href="tel:{{ settings.contact_ashish_phone | remove: ' ' }}">{%- if settings.contact_ashish_name != blank -%}{{ settings.contact_ashish_name }}: {% endif -%}{{ settings.contact_ashish_phone }}</a>
+        {%- endif -%}
+        {%- if show_email -%}
+          <a class="button button-outline" href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>
         {%- endif -%}
         {%- if show_ig -%}
           <a class="button button-outline" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram {% render 'icon', name: 'arrow-right' %}</a>
@@ -32,6 +39,9 @@
         {%- endif -%}
         {%- if show_wa -%}
           <a class="button button-outline" href="{{ settings.social_whatsapp }}" target="_blank" rel="noopener">WhatsApp {% render 'icon', name: 'arrow-right' %}</a>
+        {%- endif -%}
+        {%- if show_wa_group -%}
+          <a class="button button-outline" href="{{ settings.whatsapp_group_url }}" target="_blank" rel="noopener">Join WhatsApp Group {% render 'icon', name: 'arrow-right' %}</a>
         {%- endif -%}
       </div>
     {%- endif -%}
@@ -94,6 +104,8 @@
     { "type": "checkbox", "id": "show_instagram", "label": "Show Instagram button", "default": false },
     { "type": "checkbox", "id": "show_facebook", "label": "Show Facebook button", "default": false },
     { "type": "checkbox", "id": "show_whatsapp", "label": "Show WhatsApp button", "default": false },
+    { "type": "checkbox", "id": "show_email", "label": "Show email button", "default": false },
+    { "type": "checkbox", "id": "show_whatsapp_group", "label": "Show Join WhatsApp Group button", "default": false },
     { "type": "range", "id": "map_height_desktop", "label": "Map height on desktop", "min": 300, "max": 600, "step": 10, "unit": "px", "default": 430 },
     { "type": "range", "id": "map_height_mobile", "label": "Map height on mobile", "min": 200, "max": 450, "step": 10, "unit": "px", "default": 320 }
   ],
