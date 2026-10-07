@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "main": { "type": "main-page", "settings": {} },
+    "contact": { "type": "page-contact", "settings": {} },
+    "store-map": { "type": "store-map", "settings": {} }
+  },
+  "order": ["main", "contact", "store-map"]
+}

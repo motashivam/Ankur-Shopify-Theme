@@ -1,0 +1,100 @@
+<section class="section">
+  <div class="page-contact container">
+    <h2>{{ section.settings.heading }}</h2>
+    <div class="page-contact-grid">
+      <div class="page-contact-info">
+        <p class="page-contact-shop">{{ section.settings.shop_name }}</p>
+        {%- if settings.store_address != blank -%}
+          <p class="page-contact-address">{{ settings.store_address | escape | newline_to_br }}</p>
+        {%- endif -%}
+        {%- if settings.contact_hem_phone != blank or settings.contact_ashish_phone != blank -%}
+          <div class="page-contact-names">
+            {%- if settings.contact_hem_phone != blank -%}
+              <p>{%- if settings.contact_hem_name != blank -%}{{ settings.contact_hem_name }}<br>{%- endif -%}{{ settings.contact_hem_phone }}</p>
+            {%- endif -%}
+            {%- if settings.contact_ashish_phone != blank -%}
+              <p>{%- if settings.contact_ashish_name != blank -%}{{ settings.contact_ashish_name }}<br>{%- endif -%}{{ settings.contact_ashish_phone }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+        <div class="page-contact-buttons">
+          {%- if settings.contact_hem_phone != blank -%}
+            <a class="button button-dark" href="tel:{{ settings.contact_hem_phone | remove: ' ' }}">Call {{ settings.contact_hem_name | default: 'Store' }}</a>
+          {%- endif -%}
+          {%- if settings.contact_ashish_phone != blank -%}
+            <a class="button button-dark" href="tel:{{ settings.contact_ashish_phone | remove: ' ' }}">Call {{ settings.contact_ashish_name | default: 'Store' }}</a>
+          {%- endif -%}
+          {%- if settings.social_instagram != blank -%}
+            <a class="button button-outline" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram {% render 'icon', name: 'arrow-right' %}</a>
+          {%- endif -%}
+          {%- if settings.google_maps_url != blank -%}
+            <a class="button button-outline" href="{{ settings.google_maps_url }}" target="_blank" rel="noopener">Get Directions {% render 'icon', name: 'arrow-right' %}</a>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="page-contact-formwrap">
+        <h3>{{ section.settings.form_heading }}</h3>
+        {%- form 'contact', class: 'page-contact-form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="form-status success">Thanks for reaching out. We will get back to you soon.</p>
+          {%- endif -%}
+          {%- if form.errors -%}
+            <p class="form-status error">{{ form.errors | default_errors }}</p>
+          {%- endif -%}
+          <label>Name
+            <input type="text" name="contact[name]" value="{{ form.name }}" autocomplete="name" required>
+          </label>
+          <label>Email
+            <input type="email" name="contact[email]" value="{{ form.email }}" autocomplete="email" required>
+          </label>
+          <label>Phone (optional)
+            <input type="tel" name="contact[phone]" value="{{ form.phone }}" autocomplete="tel">
+          </label>
+          <label>Message
+            <textarea name="contact[body]" rows="5" required>{{ form.body }}</textarea>
+          </label>
+          <button class="button button-dark" type="submit">Send message</button>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .page-contact h2 { margin: 0 0 26px; }
+  .page-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .page-contact-shop { margin: 0 0 10px; font-weight: 600; letter-spacing: .04em; color: #24313a; font-size: 14px; }
+  .page-contact-address { margin: 0; color: #24313a; font-size: 15px; line-height: 1.7; }
+  .page-contact-names { display: grid; gap: 12px; margin-top: 18px; }
+  .page-contact-names p { margin: 0; color: #24313a; font-size: 15px; line-height: 1.6; }
+  .page-contact-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+  .page-contact-formwrap h3 { margin: 0 0 18px; font-size: 20px; color: #24313a; }
+  .page-contact-form { display: grid; gap: 14px; }
+  .page-contact-form label { display: grid; gap: 6px; font-size: 13px; color: #24313a; }
+  .page-contact-form input,
+  .page-contact-form textarea {
+    width: 100%; min-height: 46px; padding: 12px 14px; font-size: 15px; color: #24313a;
+    background: #fff; border: 1px solid #ddd7cb; border-radius: 4px; font-family: inherit;
+  }
+  .page-contact-form textarea { min-height: 130px; resize: vertical; }
+  .page-contact-form .button { justify-self: start; }
+  @media (max-width: 850px) {
+    .page-contact-grid { grid-template-columns: 1fr; gap: 36px; }
+  }
+  @media (max-width: 600px) {
+    .page-contact-address, .page-contact-names p { font-size: 14px; }
+    .page-contact-buttons .button { flex: 1 1 100%; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Contact info",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get in touch" },
+    { "type": "text", "id": "shop_name", "label": "Shop name", "default": "ANKUR FAMILY SHOP" },
+    { "type": "text", "id": "form_heading", "label": "Form heading", "default": "Send us a message" }
+  ],
+  "presets": [{ "name": "Contact info" }]
+}
+{% endschema %}
