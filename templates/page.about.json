@@ -9,7 +9,17 @@
  */
 {
   "sections": {
-    "about": { "type": "page-about", "settings": {} }
+    "about": {
+      "type": "page-about",
+      "blocks": {
+        "style": { "type": "point", "settings": { "heading": "EVERYDAY STYLE", "text": "Comfortable clothing for regular wear." } },
+        "practical": { "type": "point", "settings": { "heading": "PRACTICAL CHOICES", "text": "Easy-to-wear options across common categories." } },
+        "support": { "type": "point", "settings": { "heading": "IN-STORE SUPPORT", "text": "Customers can visit the Mandvi store for help." } },
+        "shopping": { "type": "point", "settings": { "heading": "EASY SHOPPING", "text": "Simple online browsing and contact options." } }
+      },
+      "block_order": ["style", "practical", "support", "shopping"],
+      "settings": {}
+    }
   },
   "order": ["about"]
 }
