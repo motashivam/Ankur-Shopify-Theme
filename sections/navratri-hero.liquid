@@ -29,7 +29,7 @@
         {{ navratri_img | image_url: width: 1400 | image_tag: widths: '520, 760, 1000, 1400', sizes: '(max-width: 850px) 100vw, 55vw', alt: 'Daily wear with festive colour', loading: 'eager', fetchpriority: 'high' }}
       </picture>
     {% else %}
-      <img src="{{ 'fallback-shirts.jpg' | asset_url }}" width="1400" height="2100" alt="Man wearing a smart everyday shirt" loading="eager" fetchpriority="high">
+      <img src="{{ 'fallback-everyday.jpg' | asset_url }}" width="1200" height="1800" alt="Man wearing everyday casual menswear" loading="eager" fetchpriority="high">
     {% endif %}
     <div class="hero-caption"><span>01 / 09</span><span>The festive edit</span></div>
   </div>
