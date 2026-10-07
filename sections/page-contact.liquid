@@ -27,6 +27,12 @@
           {%- if settings.social_instagram != blank -%}
             <a class="button button-outline" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram {% render 'icon', name: 'arrow-right' %}</a>
           {%- endif -%}
+          {%- if settings.social_facebook != blank -%}
+            <a class="button button-outline" href="{{ settings.social_facebook }}" target="_blank" rel="noopener">Facebook {% render 'icon', name: 'arrow-right' %}</a>
+          {%- endif -%}
+          {%- if settings.social_whatsapp != blank -%}
+            <a class="button button-outline" href="{{ settings.social_whatsapp }}" target="_blank" rel="noopener">WhatsApp {% render 'icon', name: 'arrow-right' %}</a>
+          {%- endif -%}
           {%- if settings.google_maps_url != blank -%}
             <a class="button button-outline" href="{{ settings.google_maps_url }}" target="_blank" rel="noopener">Get Directions {% render 'icon', name: 'arrow-right' %}</a>
           {%- endif -%}
