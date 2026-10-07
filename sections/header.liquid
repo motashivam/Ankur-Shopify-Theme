@@ -131,6 +131,12 @@
     <a class="menu-action-link" href="{{ routes.account_url }}">Account {% render 'icon', name: 'chevron-right' %}</a>
     <a class="menu-action-link" href="{{ wishlist_url }}">Wishlist {% render 'icon', name: 'chevron-right' %}</a>
     <a class="menu-action-link" href="{{ routes.root_url }}pages/contact">Contact {% render 'icon', name: 'chevron-right' %}</a>
+    {%- if settings.contact_hem_phone != blank -%}
+      <a class="menu-action-link" href="tel:{{ settings.contact_hem_phone | remove: ' ' }}">{%- if settings.contact_hem_name != blank -%}{{ settings.contact_hem_name }}: {% endif -%}{{ settings.contact_hem_phone }} {% render 'icon', name: 'chevron-right' %}</a>
+    {%- endif -%}
+    {%- if settings.contact_ashish_phone != blank -%}
+      <a class="menu-action-link" href="tel:{{ settings.contact_ashish_phone | remove: ' ' }}">{%- if settings.contact_ashish_name != blank -%}{{ settings.contact_ashish_name }}: {% endif -%}{{ settings.contact_ashish_phone }} {% render 'icon', name: 'chevron-right' %}</a>
+    {%- endif -%}
 
     <div class="mobile-menu-note">{{ section.settings.mobile_note }}</div>
   </aside>

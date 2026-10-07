@@ -12,12 +12,18 @@
 
       <p>{{ section.settings.tagline }}</p>
 
-      {%- if section.settings.phone != blank or section.settings.email != blank or section.settings.address != blank -%}
+      {%- if settings.contact_hem_phone != blank or settings.contact_ashish_phone != blank or section.settings.email != blank or settings.store_address != blank -%}
         <div class="footer-contact">
-          {%- if section.settings.phone != blank -%}
-            <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '+' }}">
+          {%- if settings.contact_hem_phone != blank -%}
+            <a href="tel:{{ settings.contact_hem_phone | remove: ' ' }}">
               <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>{{ section.settings.phone }}</span>
+              <span>{%- if settings.contact_hem_name != blank -%}{{ settings.contact_hem_name }}<br>{%- endif -%}{{ settings.contact_hem_phone }}</span>
+            </a>
+          {%- endif -%}
+          {%- if settings.contact_ashish_phone != blank -%}
+            <a href="tel:{{ settings.contact_ashish_phone | remove: ' ' }}">
+              <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>{%- if settings.contact_ashish_name != blank -%}{{ settings.contact_ashish_name }}<br>{%- endif -%}{{ settings.contact_ashish_phone }}</span>
             </a>
           {%- endif -%}
           {%- if section.settings.email != blank -%}
@@ -26,11 +32,17 @@
               <span>{{ section.settings.email }}</span>
             </a>
           {%- endif -%}
-          {%- if section.settings.address != blank -%}
+          {%- if settings.store_address != blank -%}
             <span class="footer-contact-line">
               <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>{{ section.settings.address }}</span>
+              <span>{{ settings.store_address }}</span>
             </span>
+          {%- endif -%}
+          {%- if settings.google_maps_url != blank -%}
+            <a class="footer-contact-line" href="{{ settings.google_maps_url }}" rel="noopener" target="_blank">
+              <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Get directions</span>
+            </a>
           {%- endif -%}
         </div>
       {%- endif -%}
@@ -142,9 +154,7 @@
   "settings": [
     { "type": "text", "id": "tagline", "label": "Tagline", "default": "Everyday clothing made for work, weekends and everything in between." },
     { "type": "header", "content": "Contact information" },
-    { "type": "text", "id": "phone", "label": "Phone", "info": "Hidden when empty" },
-    { "type": "text", "id": "email", "label": "Email", "info": "Hidden when empty" },
-    { "type": "textarea", "id": "address", "label": "Store address", "info": "Hidden when empty" },
+    { "type": "text", "id": "email", "label": "Email", "info": "Hidden when empty. Phone numbers and store address are set in Theme settings > Store contact." },
     { "type": "header", "content": "Footer newsletter" },
     { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter signup", "default": false },
     { "type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "Stay updated" },

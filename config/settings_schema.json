@@ -45,5 +45,16 @@
       { "type": "url", "id": "social_facebook", "label": "Facebook" },
       { "type": "url", "id": "social_whatsapp", "label": "WhatsApp" }
     ]
+  },
+  {
+    "name": "Store contact",
+    "settings": [
+      { "type": "text", "id": "contact_hem_name", "label": "Contact 1 name", "default": "Hem Mota" },
+      { "type": "text", "id": "contact_hem_phone", "label": "Contact 1 phone", "default": "+91 81417 61807" },
+      { "type": "text", "id": "contact_ashish_name", "label": "Contact 2 name", "default": "Ashish Mota" },
+      { "type": "text", "id": "contact_ashish_phone", "label": "Contact 2 phone", "default": "+91 98794 05260" },
+      { "type": "textarea", "id": "store_address", "label": "Store address", "default": "Soni Bazar Rd, near Mandvi, Swamiji Sheri, Mandvi, Gujarat 370465" },
+      { "type": "url", "id": "google_maps_url", "label": "Google Maps link", "default": "https://maps.app.goo.gl/ALTLAf8Q87bmDb3dA" }
+    ]
   }
 ]

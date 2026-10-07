@@ -8,7 +8,13 @@
     "color_accent": "#c9af8b",
     "color_border": "#ddd7cb",
     "logo_width": 190,
-    "page_width": 1200
+    "page_width": 1200,
+    "contact_hem_name": "Hem Mota",
+    "contact_hem_phone": "+91 81417 61807",
+    "contact_ashish_name": "Ashish Mota",
+    "contact_ashish_phone": "+91 98794 05260",
+    "store_address": "Soni Bazar Rd, near Mandvi, Swamiji Sheri, Mandvi, Gujarat 370465",
+    "google_maps_url": "https://maps.app.goo.gl/ALTLAf8Q87bmDb3dA"
   },
   "presets": {
     "Ankur": {
@@ -20,7 +26,13 @@
       "color_accent": "#c9af8b",
       "color_border": "#ddd7cb",
       "logo_width": 190,
-      "page_width": 1200
+      "page_width": 1200,
+      "contact_hem_name": "Hem Mota",
+      "contact_hem_phone": "+91 81417 61807",
+      "contact_ashish_name": "Ashish Mota",
+      "contact_ashish_phone": "+91 98794 05260",
+      "store_address": "Soni Bazar Rd, near Mandvi, Swamiji Sheri, Mandvi, Gujarat 370465",
+      "google_maps_url": "https://maps.app.goo.gl/ALTLAf8Q87bmDb3dA"
     }
   }
 }
