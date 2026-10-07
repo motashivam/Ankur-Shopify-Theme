@@ -94,7 +94,7 @@
           {% endfor %}
         </div>
       {% endunless %}
-      {% if section.settings.show_size_guide and guide.content != blank %}<a class="pdp-guide-link" href="{{ guide.url }}" data-guide-open>Size guide</a>{% endif %}
+      {% if section.settings.show_size_guide and guide.content != blank %}<a class="pdp-guide-link" href="{{ guide.url }}" data-guide-open>Size guide</a>{% elsif section.settings.show_size_guide %}<a class="pdp-guide-link" href="/pages/size-guide">Size guide</a>{% endif %}
       {% if section.settings.show_quantity %}
         <div>
           <label for="Quantity-{{ section.id }}">Quantity</label>

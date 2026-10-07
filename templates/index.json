@@ -1,7 +1,28 @@
 {
   "sections": {
+    "navratri_hero": {
+      "type": "navratri-hero",
+      "settings": {}
+    },
     "hero": {
       "type": "hero",
+      "settings": {}
+    },
+    "navratri": {
+      "type": "navratri",
+      "settings": {}
+    },
+    "navratri_look": {
+      "type": "navratri-look",
+      "blocks": {
+        "shirts": { "type": "look", "settings": { "heading": "Shirts", "note": "Festive ready", "link_label": "Shop now" } },
+        "polos": { "type": "look", "settings": { "heading": "Polos", "note": "Evening easy", "link_label": "Shop now" } },
+        "tshirts": { "type": "look", "settings": { "heading": "T-Shirts", "note": "Everyday comfort", "link_label": "Shop now" } },
+        "trousers": { "type": "look", "settings": { "heading": "Trousers", "note": "Sharp and simple", "link_label": "Shop now" } },
+        "jeans": { "type": "look", "settings": { "heading": "Jeans", "note": "Go anywhere", "link_label": "Shop now" } },
+        "women": { "type": "look", "settings": { "heading": "Women", "note": "Festive picks", "link_label": "Shop now" } }
+      },
+      "block_order": ["shirts", "polos", "tshirts", "trousers", "jeans", "women"],
       "settings": {}
     },
     "category_strip": {
@@ -73,7 +94,11 @@
     "newsletter": {
       "type": "newsletter",
       "settings": {}
+    },
+    "navratri_banner": {
+      "type": "navratri-banner",
+      "settings": {}
     }
   },
-  "order": ["hero", "category_strip", "categories", "featured", "needs", "promise", "price_links", "newsletter"]
+  "order": ["navratri_hero", "hero", "category_strip", "navratri", "navratri_look", "categories", "featured", "needs", "promise", "price_links", "navratri_banner", "newsletter"]
 }

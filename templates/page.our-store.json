@@ -1,7 +1,7 @@
 {
   "sections": {
     "main": { "type": "main-page", "settings": {} },
-    "store-map": { "type": "store-map", "settings": { "show_contacts": true, "show_instagram": true } }
+    "store-map": { "type": "store-map", "settings": { "enable_map": true, "heading": "VISIT OUR STORE", "address": "Ankur Family Shop\nSoni Bazar Rd, near Mandvi, Swamiji Sheri,\nMandvi, Gujarat 370465", "map_embed_url": "https://www.google.com/maps?q=Ankur+Family+Shop,+Soni+Bazar+Rd,+Swamiji+Sheri,+Mandvi,+Gujarat+370465&output=embed", "directions_url": "https://maps.app.goo.gl/ALTLAf8Q87bmDb3dA", "button_label": "GET DIRECTIONS", "show_contacts": true, "show_email": true, "show_instagram": true, "show_facebook": true, "show_whatsapp": true, "show_whatsapp_group": true, "map_height_desktop": 430, "map_height_mobile": 320 } }
   },
   "order": ["main", "store-map"]
 }

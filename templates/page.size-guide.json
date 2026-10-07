@@ -1,0 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "sizeguide": {
+      "type": "page-size-guide",
+      "blocks": {
+        "row-s": { "type": "size_row", "settings": { "size": "S", "chest": "", "waist": "", "length": "" } },
+        "row-m": { "type": "size_row", "settings": { "size": "M", "chest": "", "waist": "", "length": "" } },
+        "row-l": { "type": "size_row", "settings": { "size": "L", "chest": "", "waist": "", "length": "" } },
+        "row-xl": { "type": "size_row", "settings": { "size": "XL", "chest": "", "waist": "", "length": "" } },
+        "row-xxl": { "type": "size_row", "settings": { "size": "XXL", "chest": "", "waist": "", "length": "" } }
+      },
+      "block_order": ["row-s", "row-m", "row-l", "row-xl", "row-xxl"],
+      "settings": {}
+    }
+  },
+  "order": ["sizeguide"]
+}

@@ -1,5 +1,15 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
+    "logo_width": 190,
     "color_background": "#f8f6ef",
     "color_surface": "#f1ede4",
     "color_primary": "#2f4858",
@@ -7,14 +17,26 @@
     "color_muted": "#68737a",
     "color_accent": "#c9af8b",
     "color_border": "#ddd7cb",
-    "logo_width": 190,
     "page_width": 1200,
+    "show_vendor": false,
+    "social_instagram": "https://www.instagram.com/ankurfamilyshop_mandvi/",
+    "social_facebook": "https://www.facebook.com/people/Ankur-Family-Shop/100063595075294/#",
+    "social_whatsapp": "https://chat.whatsapp.com/FFGOA2IcBJk9RBFAxV3Sif",
     "contact_hem_name": "Hem Mota",
     "contact_hem_phone": "+91 81417 61807",
     "contact_ashish_name": "Ashish Mota",
     "contact_ashish_phone": "+91 98794 05260",
     "store_address": "Soni Bazar Rd, near Mandvi, Swamiji Sheri, Mandvi, Gujarat 370465",
-    "google_maps_url": "https://maps.app.goo.gl/ALTLAf8Q87bmDb3dA"
+    "contact_email": "motahem91@gmail.com",
+    "whatsapp_group_url": "https://chat.whatsapp.com/FFGOA2IcBJk9RBFAxV3Sif",
+    "google_maps_url": "https://maps.app.goo.gl/ALTLAf8Q87bmDb3dA",
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
   },
   "presets": {
     "Ankur": {
@@ -32,6 +54,8 @@
       "contact_ashish_name": "Ashish Mota",
       "contact_ashish_phone": "+91 98794 05260",
       "store_address": "Soni Bazar Rd, near Mandvi, Swamiji Sheri, Mandvi, Gujarat 370465",
+      "contact_email": "motahem91@gmail.com",
+      "whatsapp_group_url": "https://chat.whatsapp.com/FFGOA2IcBJk9RBFAxV3Sif",
       "google_maps_url": "https://maps.app.goo.gl/ALTLAf8Q87bmDb3dA"
     }
   }
