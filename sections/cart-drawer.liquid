@@ -8,9 +8,9 @@
     {% if cart.empty? %}
       <div class="empty-cart">
         {% render 'icon', name: 'bag' %}
-        <h4>Your bag is waiting.</h4>
-        <p>Add something good for your next everyday.</p>
-        <a class="button button-dark" href="{{ routes.all_products_collection_url }}">Start shopping</a>
+        <h4>YOUR CART IS EMPTY</h4>
+        <p>Find everyday styles made for work, weekends and regular wear.</p>
+        <a class="button button-dark" href="{{ routes.all_products_collection_url }}">CONTINUE SHOPPING</a>
       </div>
     {% else %}
       <div class="cart-items">
@@ -22,8 +22,12 @@
             <div>
               <a href="{{ item.url }}"><strong>{{ item.product.title }}</strong></a>
               {% unless item.product.has_only_default_variant %}<span>{{ item.variant.title }}</span>{% endunless %}
-              <small>Qty {{ item.quantity }}</small>
-              <button class="cart-remove" type="button" data-cart-remove data-line="{{ forloop.index }}">Remove</button>
+              <div class="quantity-control" data-quantity>
+                <button type="button" aria-label="Decrease quantity for {{ item.product.title | escape }}" data-cart-quantity="{{ forloop.index }}"{% if item.quantity <= 1 %} disabled{% endif %}>{% render 'icon', name: 'minus' %}</button>
+                <input type="text" value="{{ item.quantity }}" readonly aria-label="Quantity for {{ item.product.title | escape }}">
+                <button type="button" aria-label="Increase quantity for {{ item.product.title | escape }}" data-cart-quantity="{{ forloop.index }}" data-cart-increase>{% render 'icon', name: 'plus' %}</button>
+              </div>
+              <button class="cart-remove" type="button" data-cart-remove data-line="{{ forloop.index }}" aria-label="Remove {{ item.product.title | escape }}">Remove</button>
             </div>
             <b>{{ item.final_line_price | money }}</b>
           </div>

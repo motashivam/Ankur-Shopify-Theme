@@ -3,8 +3,8 @@
 
   {% if cart.empty? %}
     <div class="empty-cart cart-page-empty">
-      {% render 'icon', name: 'bag' %}<h4>Your bag is waiting.</h4><p>Add something good for your next everyday.</p>
-      <a class="button button-dark" href="{{ routes.all_products_collection_url }}">Start shopping</a>
+      {% render 'icon', name: 'bag' %}<h4>YOUR CART IS EMPTY</h4><p>Find everyday styles made for work, weekends and regular wear.</p>
+      <a class="button button-dark" href="{{ routes.all_products_collection_url }}">CONTINUE SHOPPING</a>
     </div>
   {% else %}
     <form action="{{ routes.cart_url }}" method="post" id="CartForm">
@@ -15,7 +15,7 @@
             <div class="cart-row-info"><a href="{{ item.url }}"><strong>{{ item.product.title }}</strong></a>{% unless item.product.has_only_default_variant %}<span>{{ item.variant.title }}</span>{% endunless %}<span>{{ item.final_price | money }}</span></div>
             <div class="quantity-control" data-quantity>
               <button type="button" aria-label="Decrease quantity" data-quantity-change="-1">{% render 'icon', name: 'minus' %}</button>
-              <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric" aria-label="Quantity for {{ item.product.title | escape }}">
+              <input type="number" name="updates[]" value="{{ item.quantity }}" min="1" inputmode="numeric" aria-label="Quantity for {{ item.product.title | escape }}">
               <button type="button" aria-label="Increase quantity" data-quantity-change="1">{% render 'icon', name: 'plus' %}</button>
             </div>
             <strong class="cart-row-price">{{ item.final_line_price | money }}</strong>

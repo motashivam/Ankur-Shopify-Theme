@@ -155,8 +155,26 @@
     }
   }
 
-  async function removeCartLine(line, button) {
-    button.disabled = true;
+  async function changeCartLine(line, quantity, item) {
+    const stepper = item?.querySelector('[data-quantity]');
+    stepper?.querySelectorAll('button').forEach((button) => { button.disabled = true; });
+    if (item) item.setAttribute('aria-busy', 'true');
+    try {
+      const response = await fetch(`${routes.cartChange || '/cart/change'}.js`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ line: Number(line), quantity: Math.max(1, Number(quantity) || 1) })
+      });
+      if (!response.ok) throw new Error('Could not update quantity');
+      await refreshCart(true);
+    } catch (error) {
+      stepper?.querySelectorAll('button').forEach((button) => { button.disabled = false; });
+      if (item) item.removeAttribute('aria-busy');
+      showToast(error.message || 'Something went wrong');
+    }
+  }
+
+  async function removeCartLine(line, button) {    button.disabled = true;
     try {
       const response = await fetch(`${routes.cartChange || '/cart/change'}.js`, {
         method: 'POST',
@@ -251,6 +269,15 @@
 
     const removeButton = target.closest('[data-cart-remove]');
     if (removeButton) removeCartLine(removeButton.dataset.line, removeButton);
+
+    const cartQuantityButton = target.closest('[data-cart-quantity]');
+    if (cartQuantityButton) {
+      const item = cartQuantityButton.closest('.cart-item');
+      const input = qs('input', cartQuantityButton.closest('[data-quantity]'));
+      const current = Number(input?.value) || 1;
+      const next = cartQuantityButton.hasAttribute('data-cart-increase') ? current + 1 : current - 1;
+      changeCartLine(cartQuantityButton.dataset.cartQuantity, next, item);
+    }
 
     const wishButton = target.closest('[data-wishlist]');
     if (wishButton) updateWishlist(wishButton);
