@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "enable_navratri_mode": true,
     "logo_width": 190,
     "color_background": "#f8f6ef",
     "color_surface": "#f1ede4",

@@ -8,8 +8,12 @@
       "type": "hero",
       "settings": {}
     },
-    "navratri": {
-      "type": "navratri",
+    "navratri_palette": {
+      "type": "navratri-palette",
+      "settings": {}
+    },
+    "navratri_picks": {
+      "type": "navratri-collection",
       "settings": {}
     },
     "navratri_look": {
@@ -100,5 +104,5 @@
       "settings": {}
     }
   },
-  "order": ["navratri_hero", "hero", "category_strip", "navratri", "navratri_look", "categories", "featured", "needs", "promise", "price_links", "navratri_banner", "newsletter"]
+  "order": ["navratri_hero", "hero", "category_strip", "navratri_palette", "navratri_picks", "navratri_look", "categories", "featured", "needs", "promise", "price_links", "navratri_banner", "newsletter"]
 }

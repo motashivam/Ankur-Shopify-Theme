@@ -4,13 +4,21 @@
 %}
 
 {% if section.settings.show_announcement and section.settings.announcement_text != blank %}
-  <div class="announcement" role="region" aria-label="Announcement">
-    <span>{{ section.settings.announcement_text }}</span>
-    {% if section.settings.announcement_link_label != blank %}
-      <a class="announcement-link" href="{{ section.settings.announcement_link | default: routes.all_products_collection_url }}">
-        {{ section.settings.announcement_link_label }}
-        {% render 'icon', name: 'arrow-right' %}
-      </a>
+  <div class="announcement{% if settings.enable_navratri_mode %} navratri-announcement{% endif %}" role="region" aria-label="Announcement">
+    {% if settings.enable_navratri_mode and settings.navratri_announcement_text != blank %}
+      <span>{{ settings.navratri_announcement_text }}</span>
+      {% if settings.navratri_announcement_subtext != blank %}<span>{{ settings.navratri_announcement_subtext }}</span>{% endif %}
+      {% if settings.navratri_announcement_cta != blank and settings.navratri_announcement_link != blank %}
+        <a class="announcement-link" href="{{ settings.navratri_announcement_link }}">{{ settings.navratri_announcement_cta }}</a>
+      {% endif %}
+    {% else %}
+      <span>{{ section.settings.announcement_text }}</span>
+      {% if section.settings.announcement_link_label != blank %}
+        <a class="announcement-link" href="{{ section.settings.announcement_link | default: routes.all_products_collection_url }}">
+          {{ section.settings.announcement_link_label }}
+          {% render 'icon', name: 'arrow-right' %}
+        </a>
+      {% endif %}
     {% endif %}
   </div>
 {% endif %}
@@ -74,6 +82,9 @@
 <nav class="category-nav" aria-label="Category navigation">
   <div class="container">
     <ul class="category-list">
+      {% if settings.enable_navratri_mode and settings.navratri_hero_cta1_link != blank %}
+        <li><a class="navratri-nav-item" href="{{ settings.navratri_hero_cta1_link }}">NAVRATRI EDIT</a></li>
+      {% endif %}
       <li><a href="{{ routes.all_products_collection_url }}">NEW ARRIVALS</a></li>
       <li><a href="{{ routes.all_products_collection_url }}">SHIRTS</a></li>
       <li><a href="{{ routes.all_products_collection_url }}">T-SHIRTS</a></li>
@@ -137,6 +148,9 @@
     {%- if settings.contact_ashish_phone != blank -%}
       <a class="menu-action-link" href="tel:{{ settings.contact_ashish_phone | remove: ' ' }}">{%- if settings.contact_ashish_name != blank -%}{{ settings.contact_ashish_name }}: {% endif -%}{{ settings.contact_ashish_phone }} {% render 'icon', name: 'chevron-right' %}</a>
     {%- endif -%}
+    {% if settings.enable_navratri_mode and settings.navratri_hero_cta1_link != blank %}
+      <a class="menu-action-link navratri-nav-item" href="{{ settings.navratri_hero_cta1_link }}">Navratri Edit {% render 'icon', name: 'arrow-right' %}</a>
+    {% endif %}
 
     <div class="mobile-menu-note">{{ section.settings.mobile_note }}</div>
   </aside>

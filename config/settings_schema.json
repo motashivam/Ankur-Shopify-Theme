@@ -60,9 +60,34 @@
     ]
   },
   {
-    "name": "Navratri edition",
+    "name": "Navratri Edition (Seasonal)",
     "settings": [
-      { "type": "checkbox", "id": "enable_navratri_mode", "label": "Enable Navratri mode", "info": "Off returns the theme to the normal ANKUR design exactly.", "default": false }
+      { "type": "checkbox", "id": "enable_navratri_mode", "label": "Enable Navratri Edition", "info": "Shows the seasonal announcement, Navratri hero, picks, palette and nav item. Uncheck to return to the normal theme.", "default": false },
+      { "type": "header", "content": "Announcement Bar" },
+      { "type": "text", "id": "navratri_announcement_text", "label": "Message", "default": "NAVRATRI EDIT IS LIVE • EASY FESTIVE STYLES FOR EVERY DAY" },
+      { "type": "text", "id": "navratri_announcement_subtext", "label": "Secondary message" },
+      { "type": "text", "id": "navratri_announcement_cta", "label": "CTA text", "default": "SHOP THE EDIT" },
+      { "type": "url", "id": "navratri_announcement_link", "label": "CTA link" },
+      { "type": "header", "content": "Navratri Hero" },
+      { "type": "image_picker", "id": "navratri_hero_image", "label": "Image (daily wear with festive colour)" },
+      { "type": "image_picker", "id": "navratri_hero_image_mobile", "label": "Mobile image" },
+      { "type": "inline_richtext", "id": "navratri_hero_heading", "label": "Heading", "default": "COLOUR FOR THE <em>SEASON.</em> COMFORT FOR EVERY DAY." },
+      { "type": "textarea", "id": "navratri_hero_subtext", "label": "Subtext", "default": "Easy styles for festive evenings and everyday plans." },
+      { "type": "text", "id": "navratri_hero_cta1", "label": "Primary CTA", "default": "SHOP NAVRATRI PICKS" },
+      { "type": "url", "id": "navratri_hero_cta1_link", "label": "Primary CTA link" },
+      { "type": "text", "id": "navratri_hero_cta2", "label": "Secondary CTA" },
+      { "type": "url", "id": "navratri_hero_cta2_link", "label": "Secondary CTA link" },
+      { "type": "header", "content": "Navratri Picks" },
+      { "type": "collection", "id": "navratri_collection", "label": "Collection" },
+      { "type": "text", "id": "navratri_collection_heading", "label": "Section heading", "default": "Festive mood. Everyday comfort." },
+      { "type": "text", "id": "navratri_collection_subtext", "label": "Subtext", "default": "Easy everyday styles with a festive touch." },
+      { "type": "header", "content": "Festive Palette" },
+      { "type": "text", "id": "navratri_colors_heading", "label": "Section heading", "default": "COLOURS OF NAVRATRI" },
+      { "type": "paragraph", "content": "Tiles are decorative colour inspiration and are not clickable." },
+      { "type": "header", "content": "Accent Colors (optional overrides)" },
+      { "type": "color", "id": "navratri_red", "label": "Festive Red", "default": "#8E3E45" },
+      { "type": "color", "id": "navratri_saffron", "label": "Saffron", "default": "#D98A32" },
+      { "type": "color", "id": "navratri_gold", "label": "Muted Gold", "default": "#C9A15B" }
     ]
   }
 ]

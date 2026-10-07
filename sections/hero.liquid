@@ -1,3 +1,4 @@
+{% unless settings.enable_navratri_mode and request.page_type == 'index' %}
 <section class="hero container" id="Hero-{{ section.id }}">
   <div class="hero-copy">
     {% if section.settings.eyebrow != blank %}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{% endif %}
@@ -27,6 +28,7 @@
     {% if section.settings.stamp != blank %}<div class="hero-stamp">{% render 'icon', name: 'sparkles' %}<span>{{ section.settings.stamp }}</span></div>{% endif %}
   </div>
 </section>
+{% endunless %}
 
 {% schema %}
 {

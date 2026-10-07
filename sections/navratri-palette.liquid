@@ -1,0 +1,23 @@
+{% if settings.enable_navratri_mode %}
+<section class="navratri-palette section container">
+  <div class="section-heading">
+    <div><span class="eyebrow">NAVRATRI EDIT</span><h2>{{ settings.navratri_colors_heading }}</h2></div>
+  </div>
+  <div class="navratri-palette-grid">
+    <span class="navratri-palette-tile"><span class="navratri-palette-swatch" style="background: #7a263a;"></span><span class="navratri-palette-name">MAROON</span></span>
+    <span class="navratri-palette-tile"><span class="navratri-palette-swatch" style="background: #c99327;"></span><span class="navratri-palette-name">MUSTARD</span></span>
+    <span class="navratri-palette-tile"><span class="navratri-palette-swatch" style="background: #2f4858;"></span><span class="navratri-palette-name">NAVY</span></span>
+    <span class="navratri-palette-tile"><span class="navratri-palette-swatch" style="background: #6f7442;"></span><span class="navratri-palette-name">OLIVE</span></span>
+    <span class="navratri-palette-tile"><span class="navratri-palette-swatch" style="background: #efe9dc;"></span><span class="navratri-palette-name">IVORY</span></span>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Navratri Palette",
+  "tag": "section",
+  "settings": [],
+  "presets": [{ "name": "Navratri Palette" }]
+}
+{% endschema %}

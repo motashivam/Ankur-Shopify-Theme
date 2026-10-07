@@ -14,3 +14,32 @@
 @media (max-width: 600px) {
   .navratri-divider { max-width: 220px; }
 }
+
+.navratri-edition { --navratri-red: #8E3E45; --navratri-saffron: #D98A32; --navratri-gold: #C9A15B; }
+.navratri-announcement { height: auto; min-height: 36px; padding: 8px 20px; text-align: center; flex-wrap: wrap; background: #2f4858; color: #f8f6ef; }
+.navratri-announcement .announcement-link:hover { color: #f8f6ef; }
+.navratri-nav-item { color: var(--navratri-red) !important; font-weight: 600; }
+.navratri-nav-item::after { background: var(--navratri-gold) !important; }
+.navratri-hero > div { min-width: 0; }
+.navratri-hero .eyebrow { color: var(--navratri-saffron); }
+.navratri-hero h1 { overflow-wrap: anywhere; }
+.navratri-hero h1 em { color: var(--navratri-saffron); font-style: normal; }
+.navratri-hero .hero-visual picture { display: block; width: 100%; height: 100%; }
+.navratri-hero .hero-visual picture img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+.navratri-rule { display: block; width: 64px; height: 2px; background: var(--navratri-gold); margin: 22px 0 0; }
+.navratri-collection .section-heading h2::after { content: ''; display: block; width: 60px; height: 2px; background: var(--navratri-gold); margin-top: 8px; }
+.navratri-collection-subtext { color: #68737a; font-size: 15px; line-height: 1.7; margin-bottom: 32px; max-width: 600px; }
+.navratri-collection .product-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.navratri-palette-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.navratri-palette .eyebrow { color: var(--navratri-saffron); }
+.navratri-palette-tile { display: flex; flex-direction: column; text-align: left; background: #fff; border: 1px solid var(--color-border, #ddd7cb); border-radius: 4px; overflow: hidden; min-height: 44px; }
+.navratri-palette-swatch { height: 56px; }
+.navratri-palette-name { font-size: 12px; font-weight: 600; color: #24313a; letter-spacing: .06em; padding: 10px 12px; }
+@media (max-width: 1024px) {
+  .navratri-collection .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .navratri-collection .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .navratri-palette-grid { display: flex; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x proximity; }
+  .navratri-palette-tile { flex: 0 0 132px; scroll-snap-align: start; }
+}
