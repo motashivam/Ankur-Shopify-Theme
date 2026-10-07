@@ -1,0 +1,23 @@
+{% if section.settings.show_related %}
+  <section class="container pdp-related" data-product-recommendations data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&amp;product_id={{ product.id }}&amp;limit={{ section.settings.limit }}&amp;intent=related"{% unless recommendations.performed and recommendations.products_count > 0 %} hidden{% endunless %}>
+    {% if recommendations.performed and recommendations.products_count > 0 %}
+      <h2>{{ section.settings.heading | escape }}</h2>
+      <div class="product-grid">
+        {% for recommendation in recommendations.products %}
+          {% render 'product-card', product: recommendation, show_vendor: section.settings.show_vendor %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </section>
+{% endif %}
+{% schema %}
+{
+  "name": "Related products",
+  "settings": [
+    { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "You may also like" },
+    { "type": "range", "id": "limit", "label": "Maximum products", "min": 2, "max": 8, "step": 1, "default": 4 },
+    { "type": "checkbox", "id": "show_vendor", "label": "Show vendor", "default": false }
+  ]
+}
+{% endschema %}

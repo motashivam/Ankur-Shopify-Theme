@@ -109,12 +109,14 @@
   }
 
   async function addToCart(form) {
+    const productState = (state, message = '') => form.dispatchEvent(new CustomEvent('product:cart-state', { detail: { state, message } }));
     const submit = qs('[type="submit"]', form);
     const originalText = submit?.textContent;
     if (submit) {
       submit.disabled = true;
       submit.textContent = 'Adding...';
     }
+    productState('loading');
 
     try {
       const response = await fetch(`${routes.cartAdd || '/cart/add'}.js`, {
@@ -128,13 +130,16 @@
       }
       await refreshCart(true);
       showToast('Added to your bag');
+      productState('success');
     } catch (error) {
       showToast(error.message || 'Something went wrong');
+      productState('error', error.message || 'Something went wrong');
     } finally {
       if (submit) {
         submit.disabled = false;
         submit.textContent = originalText;
       }
+      productState('complete');
     }
   }
 
@@ -282,4 +287,5 @@
 
   restoreWishlist();
   document.addEventListener('shopify:section:load', restoreWishlist);
+  document.addEventListener('theme:cards:load', restoreWishlist);
 })();
