@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "faq": {
+      "type": "page-faq",
+      "blocks": {
+        "faq-1": { "type": "qa", "settings": { "question": "How can I contact Ankur Family Shop?", "answer": "<p>Call the store: <a href=\"tel:+918141761807\">Hem Mota – +91 81417 61807</a> or <a href=\"tel:+919879405260\">Ashish Mota – +91 98794 05260</a>. You can also write to us on the <a href=\"/pages/contact\">Contact Us</a> page.</p>" } },
+        "faq-2": { "type": "qa", "settings": { "question": "Where is the store located?", "answer": "<p>Ankur Family Shop, Soni Bazar Rd, near Mandvi, Swamiji Sheri, Mandvi, Gujarat 370465. See <a href=\"/pages/our-store\">Our Store</a> for the map and directions.</p>" } },
+        "faq-3": { "type": "qa", "settings": { "question": "How do I choose the right size?", "answer": "<p>Check our <a href=\"/pages/size-guide\">Size Guide</a>. Fit varies by style, so when in doubt call the store and we will help you pick the right size.</p>" } },
+        "faq-4": { "type": "qa", "settings": { "question": "How can I check my order?", "answer": "<p>Sign in to your <a href=\"/account\">account</a> to view your orders. For help with an order, call the store or message us on the <a href=\"/pages/contact\">Contact Us</a> page.</p>" } },
+        "faq-5": { "type": "qa", "settings": { "question": "How do returns work?", "answer": "<p>Please read our <a href=\"/policies/refund-policy\">refund policy</a> for the current terms. For help with a return, call the store.</p>" } },
+        "faq-6": { "type": "qa", "settings": { "question": "How can I find new arrivals?", "answer": "<p>Browse <a href=\"/collections/all\">all products</a> online, or visit the store to see what is new.</p>" } }
+      },
+      "block_order": ["faq-1", "faq-2", "faq-3", "faq-4", "faq-5", "faq-6"],
+      "settings": {}
+    }
+  },
+  "order": ["faq"]
+}

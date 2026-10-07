@@ -6,6 +6,25 @@
         <p class="store-map-address">{{ section.settings.address | escape | newline_to_br }}</p>
       {%- endif -%}
     </div>
+    {%- assign show_hem = false -%}
+    {%- if section.settings.show_contacts and settings.contact_hem_phone != blank -%}{%- assign show_hem = true -%}{%- endif -%}
+    {%- assign show_ashish = false -%}
+    {%- if section.settings.show_contacts and settings.contact_ashish_phone != blank -%}{%- assign show_ashish = true -%}{%- endif -%}
+    {%- assign show_ig = false -%}
+    {%- if section.settings.show_instagram and settings.social_instagram != blank -%}{%- assign show_ig = true -%}{%- endif -%}
+    {%- if show_hem or show_ashish or show_ig -%}
+      <div class="store-map-links">
+        {%- if show_hem -%}
+          <a class="button button-outline" href="tel:{{ settings.contact_hem_phone | remove: ' ' }}">{%- if settings.contact_hem_name != blank -%}{{ settings.contact_hem_name }}: {% endif -%}{{ settings.contact_hem_phone }}</a>
+        {%- endif -%}
+        {%- if show_ashish -%}
+          <a class="button button-outline" href="tel:{{ settings.contact_ashish_phone | remove: ' ' }}">{%- if settings.contact_ashish_name != blank -%}{{ settings.contact_ashish_name }}: {% endif -%}{{ settings.contact_ashish_phone }}</a>
+        {%- endif -%}
+        {%- if show_ig -%}
+          <a class="button button-outline" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram {% render 'icon', name: 'arrow-right' %}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
     {%- if section.settings.enable_map and section.settings.map_embed_url != blank -%}
       <div
         class="store-map-frame"
@@ -34,6 +53,7 @@
 <style>
   .store-map-head h2 { margin: 0; }
   .store-map-address { margin: 14px 0 0; color: #24313a; font-size: 15px; line-height: 1.7; }
+  .store-map-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
   .store-map-frame {
     margin-top: 24px;
     height: var(--map-h-d, 430px);
@@ -60,6 +80,8 @@
     { "type": "textarea", "id": "map_embed_url", "label": "Google Maps embed URL", "info": "Paste a Google Maps embed URL (the iframe src, not the short share link). Leave empty to hide the map.", "default": "https://www.google.com/maps?q=Ankur+Family+Shop,+Soni+Bazar+Rd,+Swamiji+Sheri,+Mandvi,+Gujarat+370465&output=embed" },
     { "type": "url", "id": "directions_url", "label": "Directions URL", "default": "https://maps.app.goo.gl/ALTLAf8Q87bmDb3dA" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "GET DIRECTIONS" },
+    { "type": "checkbox", "id": "show_contacts", "label": "Show contact number buttons", "default": false },
+    { "type": "checkbox", "id": "show_instagram", "label": "Show Instagram button", "default": false },
     { "type": "range", "id": "map_height_desktop", "label": "Map height on desktop", "min": 300, "max": 600, "step": 10, "unit": "px", "default": 430 },
     { "type": "range", "id": "map_height_mobile", "label": "Map height on mobile", "min": 200, "max": 450, "step": 10, "unit": "px", "default": 320 }
   ],

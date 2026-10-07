@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "sizeguide": {
+      "type": "page-size-guide",
+      "blocks": {
+        "row-1": { "type": "size_row", "settings": {} },
+        "row-2": { "type": "size_row", "settings": {} },
+        "row-3": { "type": "size_row", "settings": {} },
+        "row-4": { "type": "size_row", "settings": {} }
+      },
+      "block_order": ["row-1", "row-2", "row-3", "row-4"],
+      "settings": {}
+    }
+  },
+  "order": ["sizeguide"]
+}
