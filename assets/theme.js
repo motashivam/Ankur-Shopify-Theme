@@ -6,6 +6,32 @@
 
   const setExpanded = (elements, value) => elements.forEach((element) => element.setAttribute('aria-expanded', String(value)));
   const setBodyLocked = (locked) => document.body.classList.toggle('drawer-open', locked);
+  let activeDrawer = null;
+  let searchOpener = null;
+
+  function closeDrawer(restoreFocus = true) {
+    if (!activeDrawer) return;
+    const { overlay, triggers, returnFocus } = activeDrawer;
+    const element = qs(overlay);
+    if (element) element.hidden = true;
+    setExpanded(qsa(triggers), false);
+    activeDrawer = null;
+    setBodyLocked(false);
+    if (restoreFocus && returnFocus?.isConnected) returnFocus.focus();
+  }
+
+  function openDrawer(overlay, dialog, triggers, returnFocus = document.activeElement) {
+    const element = qs(overlay);
+    if (!element) return;
+    if (activeDrawer?.overlay === overlay) returnFocus = activeDrawer.returnFocus;
+    else closeDrawer(false);
+    closeSearch(false);
+    activeDrawer = { overlay, dialog, triggers, returnFocus };
+    element.hidden = false;
+    setExpanded(qsa(triggers), true);
+    setBodyLocked(true);
+    qs(dialog, element)?.focus();
+  }
 
   function showToast(message) {
     const toast = qs('[data-toast]');
@@ -16,11 +42,12 @@
     showToast.timer = window.setTimeout(() => { toast.hidden = true; }, 2200);
   }
 
-  function closeSearch() {
+  function closeSearch(restoreFocus = true) {
     const panel = qs('[data-search-panel]');
-    if (!panel) return;
+    if (!panel || panel.hidden) return;
     panel.hidden = true;
     setExpanded(qsa('[data-search-toggle]'), false);
+    if (restoreFocus && searchOpener?.isConnected) searchOpener.focus();
   }
 
   function syncSearchClear() {
@@ -42,6 +69,9 @@
     const panel = qs('[data-search-panel]');
     if (!panel) return;
     const willOpen = panel.hidden;
+    if (!willOpen) { closeSearch(); return; }
+    searchOpener = document.activeElement;
+    closeDrawer(false);
     panel.hidden = !willOpen;
     setExpanded(qsa('[data-search-toggle]'), willOpen);
     if (willOpen) {
@@ -51,40 +81,22 @@
   }
 
   function openMobileMenu() {
-    const overlay = qs('[data-mobile-menu]');
-    if (!overlay) return;
-    overlay.hidden = false;
-    setExpanded(qsa('[data-mobile-menu-open]'), true);
-    setBodyLocked(true);
-    qs('.mobile-menu', overlay)?.focus();
+    openDrawer('[data-mobile-menu]', '.mobile-menu', '[data-mobile-menu-open]');
   }
 
   function closeMobileMenu() {
-    const overlay = qs('[data-mobile-menu]');
-    if (!overlay) return;
-    overlay.hidden = true;
-    setExpanded(qsa('[data-mobile-menu-open]'), false);
-    setBodyLocked(false);
+    if (activeDrawer?.overlay === '[data-mobile-menu]') closeDrawer();
   }
 
-  function openCart() {
-    const overlay = qs('[data-cart-drawer-overlay]');
-    if (!overlay) return;
-    overlay.hidden = false;
-    setExpanded(qsa('[data-cart-open]'), true);
-    setBodyLocked(true);
-    qs('[data-cart-drawer]', overlay)?.focus();
+  function openCart(returnFocus) {
+    openDrawer('[data-cart-drawer-overlay]', '[data-cart-drawer]', '[data-cart-open]', returnFocus);
   }
 
   function closeCart() {
-    const overlay = qs('[data-cart-drawer-overlay]');
-    if (!overlay) return;
-    overlay.hidden = true;
-    setExpanded(qsa('[data-cart-open]'), false);
-    setBodyLocked(false);
+    if (activeDrawer?.overlay === '[data-cart-drawer-overlay]') closeDrawer();
   }
 
-  async function refreshCart(openAfterRefresh = false) {
+  async function refreshCart(openAfterRefresh = false, returnFocus) {
     const root = routes.root || '/';
     const separator = root.includes('?') ? '&' : '?';
     const [cartResponse, sectionResponse] = await Promise.all([
@@ -105,7 +117,7 @@
       count.hidden = cart.item_count === 0;
     });
     qsa('[data-cart-open]').forEach((button) => button.setAttribute('aria-label', `Shopping bag with ${cart.item_count} items`));
-    if (openAfterRefresh) openCart();
+    if (openAfterRefresh) openCart(returnFocus);
   }
 
   async function addToCart(form) {
@@ -128,7 +140,7 @@
         const error = await response.json();
         throw new Error(error.description || 'Could not add this item');
       }
-      await refreshCart(true);
+      await refreshCart(true, submit);
       showToast('Added to your bag');
       productState('success');
     } catch (error) {
@@ -159,18 +171,31 @@
     }
   }
 
+  let wishlist = null;
+  function getWishlist() {
+    if (wishlist) return wishlist;
+    try {
+      const saved = JSON.parse(localStorage.getItem('ankur-wishlist') || '[]');
+      wishlist = new Set(Array.isArray(saved) ? saved.filter((id) => typeof id === 'string' || typeof id === 'number').map(String) : []);
+    } catch (_) {
+      wishlist = new Set();
+    }
+    return wishlist;
+  }
+
   function updateWishlist(button) {
     const productId = button.dataset.productId;
-    const saved = new Set(JSON.parse(localStorage.getItem('ankur-wishlist') || '[]'));
+    if (!productId) return;
+    const saved = getWishlist();
     if (saved.has(productId)) saved.delete(productId); else saved.add(productId);
-    localStorage.setItem('ankur-wishlist', JSON.stringify([...saved]));
-    button.classList.toggle('wishlisted', saved.has(productId));
-    button.setAttribute('aria-pressed', String(saved.has(productId)));
-    showToast(saved.has(productId) ? 'Saved to your wishlist' : 'Removed from your wishlist');
+    let persistent = true;
+    try { localStorage.setItem('ankur-wishlist', JSON.stringify([...saved])); } catch (_) { persistent = false; }
+    restoreWishlist();
+    showToast(saved.has(productId) ? (persistent ? 'Saved to your wishlist' : 'Saved for this visit') : 'Removed from your wishlist');
   }
 
   function restoreWishlist() {
-    const saved = new Set(JSON.parse(localStorage.getItem('ankur-wishlist') || '[]'));
+    const saved = getWishlist();
     qsa('[data-wishlist]').forEach((button) => {
       const active = saved.has(button.dataset.productId);
       button.classList.toggle('wishlisted', active);
@@ -264,7 +289,19 @@
   });
 
   document.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab' && activeDrawer) {
+      const dialog = qs(activeDrawer.dialog, qs(activeDrawer.overlay));
+      if (!dialog) { closeDrawer(false); return; }
+      const focusable = qsa('a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])', dialog)
+        .filter((element) => !element.disabled && element.getClientRects().length && getComputedStyle(element).visibility !== 'hidden');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first) { event.preventDefault(); dialog.focus(); }
+      else if (event.shiftKey && (document.activeElement === first || !focusable.includes(document.activeElement))) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) { event.preventDefault(); first.focus(); }
+    }
     if (event.key !== 'Escape') return;
+    if (document.querySelector('dialog[open]')) return;
     closeSearch();
     closeMobileMenu();
     closeCart();
@@ -288,4 +325,7 @@
   restoreWishlist();
   document.addEventListener('shopify:section:load', restoreWishlist);
   document.addEventListener('theme:cards:load', restoreWishlist);
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'ankur-wishlist' || event.key === null) { wishlist = null; restoreWishlist(); }
+  });
 })();

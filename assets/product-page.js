@@ -102,7 +102,7 @@
       discount.textContent = current?.discount || '';
       discount.hidden = !current?.discount;
       find('[data-availability]').textContent = current ? (available ? 'In stock' : 'Sold out') : 'This combination is unavailable';
-      const sku = find('[data-sku]');
+      const sku = find('[data-sku-row] [data-sku]');
       if (sku) {
         sku.textContent = current?.sku || '';
         find('[data-sku-row]').hidden = !current?.sku;
