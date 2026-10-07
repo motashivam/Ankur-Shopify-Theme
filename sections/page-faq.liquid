@@ -8,7 +8,7 @@
       {%- for block in section.blocks -%}
         {%- if block.settings.question == blank -%}{%- continue -%}{%- endif -%}
         <details {{ block.shopify_attributes }}>
-          <summary><span>{{ block.settings.question }}</span>{% render 'icon', name: 'chevron-down' %}</summary>
+          <summary><span>{{ block.settings.question }}</span><span class="faq-toggle" aria-hidden="true"></span></summary>
           <div class="page-faq-answer">{{ block.settings.answer }}</div>
         </details>
       {%- endfor -%}
@@ -28,8 +28,9 @@
     font-size: 15px; font-weight: 600; color: #24313a; list-style: none;
   }
   .page-faq-list summary::-webkit-details-marker { display: none; }
-  .page-faq-list summary .icon { width: 18px; height: 18px; flex: 0 0 auto; color: #2f4858; transition: transform .2s; }
-  .page-faq-list details[open] summary .icon { transform: rotate(180deg); }
+  .page-faq-list summary .faq-toggle { flex: 0 0 auto; width: 20px; height: 20px; display: grid; place-items: center; color: #2f4858; font-size: 20px; font-weight: 400; line-height: 1; }
+  .page-faq-list summary .faq-toggle::before { content: '+'; }
+  .page-faq-list details[open] summary .faq-toggle::before { content: '\2212'; }
   .page-faq-answer { padding: 0 0 18px; color: #24313a; font-size: 15px; line-height: 1.7; }
   .page-faq-answer p { margin: 0 0 10px; }
   .page-faq-answer p:last-child { margin-bottom: 0; }
